@@ -2,9 +2,9 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>NOIR — Immersive Coffee Experience</title>
+<title>NOIR — Immersive Coffee</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,1267 +12,885 @@
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-    background:#050403;
-    color:#f5eee7;
-    font-family:"Vazirmatn",sans-serif;
-    overflow-x:hidden;
+font-family:Vazirmatn,sans-serif;
+background:#050302;
+color:#eee4da;
+overflow-x:hidden;
 }
 
-body.loaded{
-    overflow-x:hidden;
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:100;
+background:radial-gradient(circle,transparent 35%,rgba(0,0,0,.55) 100%);
 }
 
-canvas{
-    display:block;
+#scene{
+position:fixed;
+inset:0;
+z-index:1;
+pointer-events:none;
 }
 
-#webgl{
-    position:fixed;
-    inset:0;
-    z-index:0;
+#scene canvas{
+width:100%;
+height:100%;
+display:block;
 }
-
-#webgl canvas{
-    width:100%;
-    height:100%;
-}
-
-.overlay{
-    position:fixed;
-    inset:0;
-    z-index:2;
-    pointer-events:none;
-}
-
-.noise{
-    position:fixed;
-    inset:0;
-    z-index:10;
-    pointer-events:none;
-    opacity:.035;
-
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
-}
-
-/* LOADER */
-
-.loader{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-
-    background:#050403;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:opacity 1s ease,visibility 1s ease;
-}
-
-.loader.hide{
-    opacity:0;
-    visibility:hidden;
-}
-
-.loader-inner{
-    text-align:center;
-}
-
-.loader-logo{
-    font-size:clamp(40px,8vw,90px);
-    font-weight:800;
-    letter-spacing:15px;
-}
-
-.loader-line{
-    width:180px;
-    height:1px;
-    background:#4b3829;
-    margin:25px auto;
-    position:relative;
-    overflow:hidden;
-}
-
-.loader-line::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:#d9a45f;
-    transform:translateX(-100%);
-    animation:loadLine 2s ease forwards;
-}
-
-@keyframes loadLine{
-    to{
-        transform:translateX(0);
-    }
-}
-
-.loader-text{
-    color:#7e7065;
-    font-size:10px;
-    letter-spacing:4px;
-}
-
-/* NAV */
 
 nav{
-    position:fixed;
-    top:0;
-    right:0;
-    left:0;
-    height:85px;
-
-    z-index:100;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 5%;
-
-    background:linear-gradient(
-        180deg,
-        rgba(5,4,3,.8),
-        transparent
-    );
-
-    pointer-events:auto;
+position:fixed;
+top:0;
+right:0;
+left:0;
+height:82px;
+padding:0 7%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+z-index:50;
+background:linear-gradient(#050302,transparent);
 }
 
 .logo{
-    font-size:23px;
-    font-weight:800;
-    letter-spacing:8px;
+font-size:25px;
+font-weight:800;
+letter-spacing:10px;
 }
 
-.nav-links{
-    display:flex;
-    gap:35px;
+nav a{
+color:#b9aaa0;
+text-decoration:none;
+font-size:12px;
+margin-right:30px;
+transition:.3s;
 }
 
-.nav-links a{
-    color:#b5a89d;
-    text-decoration:none;
-    font-size:12px;
-    transition:.3s;
+nav a:hover{
+color:#d9a45f;
 }
-
-.nav-links a:hover{
-    color:#d9a45f;
-}
-
-/* HERO */
 
 .hero{
-    height:100vh;
-    min-height:720px;
-    position:relative;
+height:100vh;
+position:relative;
+z-index:5;
+display:flex;
+align-items:center;
+padding:0 8%;
 }
 
-.hero-copy{
-    position:absolute;
-
-    top:50%;
-    right:8%;
-
-    transform:translateY(-50%);
-
-    z-index:5;
-
-    max-width:560px;
-
-    pointer-events:none;
+.heroContent{
+max-width:620px;
 }
 
-.mini-title{
-    color:#d9a45f;
-    font-size:10px;
-    letter-spacing:6px;
-    margin-bottom:25px;
+.tag{
+font-size:10px;
+letter-spacing:6px;
+color:#d9a45f;
+margin-bottom:24px;
 }
 
-.hero-copy h1{
-    font-size:clamp(60px,10vw,145px);
-    line-height:.88;
-    font-weight:800;
-    letter-spacing:-5px;
+.hero h1{
+font-size:clamp(70px,12vw,160px);
+line-height:.78;
+letter-spacing:-8px;
+text-shadow:0 30px 80px #000;
 }
 
-.hero-copy h1 span{
-    color:#d9a45f;
+.gold{
+color:#d9a45f;
 }
 
-.hero-copy p{
-    margin-top:30px;
-    color:#a09288;
-    line-height:2;
-    max-width:430px;
+.hero p{
+max-width:470px;
+margin-top:38px;
+color:#968981;
+line-height:2.2;
+font-size:14px;
 }
 
-.hero-button{
-    pointer-events:auto;
-
-    display:inline-flex;
-    align-items:center;
-    gap:15px;
-
-    margin-top:30px;
-    padding:15px 25px;
-
-    border:1px solid rgba(217,164,95,.45);
-
-    color:#f5eee7;
-    text-decoration:none;
-
-    transition:.4s;
+.button{
+display:inline-block;
+margin-top:30px;
+padding:15px 28px;
+border:1px solid #8e6439;
+color:#eee;
+text-decoration:none;
+font-size:12px;
+transition:.4s;
+pointer-events:auto;
 }
 
-.hero-button:hover{
-    background:#d9a45f;
-    color:#100a06;
-    transform:translateY(-5px);
+.button:hover{
+background:#d9a45f;
+color:#160a04;
+transform:translateY(-5px);
 }
 
-.scroll-indicator{
-    position:absolute;
-    bottom:35px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    z-index:5;
-
-    color:#756960;
-    font-size:9px;
-    letter-spacing:4px;
-
-    writing-mode:vertical-rl;
-}
-
-.scroll-indicator::after{
-    content:"";
-    display:block;
-
-    width:1px;
-    height:65px;
-
-    margin:15px auto 0;
-
-    background:linear-gradient(
-        #d9a45f,
-        transparent
-    );
-}
-
-/* CONTENT */
-
-.content{
-    position:relative;
-    z-index:20;
+.scroll{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+font-size:9px;
+letter-spacing:5px;
+color:#655a53;
 }
 
 .section{
-    min-height:100vh;
-    position:relative;
-
-    display:flex;
-    align-items:center;
-
-    padding:120px 8%;
+position:relative;
+z-index:10;
+min-height:100vh;
+padding:150px 8%;
+display:flex;
+align-items:center;
+background:linear-gradient(transparent,#070403 30%,#070403 70%,transparent);
 }
 
-.section-dark{
-    background:
-        linear-gradient(
-            180deg,
-            rgba(5,4,3,.1),
-            #080503 15%,
-            #080503 85%,
-            rgba(5,4,3,.1)
-        );
+.sectionText{
+max-width:720px;
 }
 
-.section-title{
-    max-width:650px;
+.section h2{
+font-size:clamp(50px,8vw,110px);
+line-height:.95;
+margin-bottom:35px;
 }
 
-.section-label{
-    color:#d9a45f;
-    font-size:10px;
-    letter-spacing:5px;
-    margin-bottom:20px;
+.section p{
+color:#93867d;
+line-height:2.4;
+max-width:620px;
 }
 
-.section-title h2{
-    font-size:clamp(50px,8vw,105px);
-    line-height:1;
-    margin-bottom:30px;
+.gallery{
+position:relative;
+z-index:10;
+min-height:100vh;
+padding:140px 7%;
+background:#060302;
 }
 
-.section-title p{
-    color:#91847b;
-    line-height:2.2;
-    max-width:600px;
+.galleryTitle{
+text-align:center;
+margin-bottom:70px;
 }
 
-/* MENU */
-
-.menu-section{
-    min-height:100vh;
-    padding:150px 5%;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(69,42,22,.5),
-            #080503 65%
-        );
+.galleryTitle h2{
+font-size:clamp(55px,8vw,110px);
 }
 
-.menu-header{
-    text-align:center;
-    margin-bottom:90px;
+.galleryGrid{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
 }
 
-.menu-header h2{
-    font-size:clamp(55px,9vw,120px);
-    line-height:1;
+.galleryCard{
+height:430px;
+overflow:hidden;
+position:relative;
+border:1px solid #251811;
+transform-style:preserve-3d;
+transition:.5s;
 }
 
-.menu-header p{
-    color:#81756d;
-    margin-top:20px;
+.galleryCard:hover{
+transform:perspective(900px) rotateX(4deg) rotateY(-5deg) translateY(-10px);
+border-color:#8e6439;
 }
 
-/* PRODUCTS */
-
-.products{
-    max-width:1250px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    gap:25px;
+.galleryCard img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:1s;
 }
 
-.product{
-    position:relative;
-
-    height:520px;
-
-    overflow:hidden;
-
-    background:#100a07;
-
-    border:1px solid rgba(255,255,255,.07);
-
-    transition:
-        transform .6s cubic-bezier(.2,.8,.2,1),
-        border-color .4s;
+.galleryCard:hover img{
+transform:scale(1.08);
 }
 
-.product:hover{
-    transform:
-        translateY(-15px)
-        scale(1.015);
-
-    border-color:rgba(217,164,95,.35);
+.galleryCard div{
+position:absolute;
+bottom:0;
+right:0;
+left:0;
+padding:25px;
+background:linear-gradient(transparent,rgba(0,0,0,.95));
 }
 
-.product-image{
-    position:absolute;
-    inset:0;
+.galleryCard h3{
+font-size:23px;
 }
 
-.product-image img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-
-    transition:
-        transform 1s cubic-bezier(.2,.8,.2,1),
-        filter 1s;
+.special{
+min-height:100vh;
+position:relative;
+z-index:10;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:radial-gradient(circle,#351b0d,#050302 68%);
 }
 
-.product:hover .product-image img{
-    transform:scale(1.08);
-    filter:brightness(.75);
+.special img{
+position:absolute;
+width:min(430px,70vw);
+height:540px;
+object-fit:cover;
+opacity:.42;
+filter:brightness(.55);
+border-radius:18px;
+transform:translateX(220px) rotateY(-20deg);
+transition:1s;
 }
 
-.product::after{
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    background:
-        linear-gradient(
-            transparent 30%,
-            rgba(0,0,0,.9)
-        );
+.special:hover img{
+transform:translateX(150px) rotateY(0) scale(1.03);
 }
 
-.product-info{
-    position:absolute;
-
-    bottom:0;
-    right:0;
-    left:0;
-
-    z-index:3;
-
-    padding:30px;
+.specialText{
+position:relative;
+z-index:4;
+text-align:center;
 }
 
-.product-number{
-    color:#d9a45f;
-    font-size:10px;
-    letter-spacing:4px;
+.specialText h2{
+font-size:clamp(55px,9vw,125px);
+line-height:.85;
 }
 
-.product-info h3{
-    font-size:27px;
-    margin:10px 0;
+.menu{
+position:relative;
+z-index:10;
+padding:150px 6%;
+background:#050302;
 }
 
-.product-info p{
-    color:#a4968b;
-    font-size:12px;
-    line-height:1.9;
+.menuHeader{
+text-align:center;
+margin-bottom:80px;
 }
 
-.product-price{
-    display:block;
-    margin-top:15px;
-    color:#d9a45f;
+.menuHeader h2{
+font-size:clamp(55px,9vw,120px);
+line-height:1;
 }
 
-/* FEATURE */
-
-.feature{
-    min-height:100vh;
-
-    position:relative;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    overflow:hidden;
-
-    background:#060403;
+.menuHeader p{
+color:#7f736b;
+margin-top:20px;
 }
 
-.feature::before{
-    content:"";
-
-    position:absolute;
-
-    width:600px;
-    height:600px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(217,164,95,.16),
-            transparent 65%
-        );
-
-    filter:blur(20px);
+.cards{
+max-width:1250px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
 }
 
-.feature-image{
-    position:relative;
-
-    width:min(500px,70vw);
-    height:min(620px,75vh);
-
-    object-fit:cover;
-
-    border-radius:20px;
-
-    box-shadow:
-        0 60px 100px rgba(0,0,0,.8);
-
-    transform:
-        perspective(1000px)
-        rotateY(-12deg)
-        rotateX(5deg);
-
-    transition:1s;
+.card{
+height:490px;
+position:relative;
+overflow:hidden;
+background:#0d0704;
+border:1px solid #21150f;
+transform-style:preserve-3d;
+transition:.5s;
 }
 
-.feature:hover .feature-image{
-    transform:
-        perspective(1000px)
-        rotateY(0)
-        rotateX(0)
-        scale(1.03);
+.card:hover{
+transform:perspective(1000px) rotateX(3deg) rotateY(-4deg) translateY(-12px);
+border-color:#9c6d3e;
 }
 
-.feature-text{
-    position:absolute;
-    bottom:70px;
-
-    text-align:center;
-
-    z-index:3;
+.card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:1s;
 }
 
-.feature-text h2{
-    font-size:clamp(45px,7vw,90px);
+.card:hover img{
+transform:scale(1.1);
 }
 
-/* ABOUT */
+.card:after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(transparent 20%,rgba(0,0,0,.95));
+}
+
+.cardInfo{
+position:absolute;
+bottom:0;
+right:0;
+left:0;
+padding:28px;
+z-index:2;
+}
+
+.number{
+font-size:9px;
+letter-spacing:4px;
+color:#d9a45f;
+}
+
+.card h3{
+font-size:25px;
+margin:9px 0;
+}
+
+.card p{
+font-size:12px;
+line-height:2;
+color:#a19389;
+}
+
+.price{
+display:block;
+margin-top:13px;
+color:#d9a45f;
+font-size:14px;
+}
 
 .about{
-    min-height:80vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-align:center;
-
-    padding:120px 8%;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #29170c,
-            #070403 70%
-        );
+position:relative;
+z-index:10;
+min-height:90vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:120px 8%;
+background:radial-gradient(circle,#28160a,#050302 70%);
 }
 
-.about-inner{
-    max-width:850px;
+.aboutInner{
+max-width:850px;
 }
 
-.about-inner h2{
-    font-size:clamp(45px,7vw,95px);
-    line-height:1;
-    margin:25px 0 35px;
+.about h2{
+font-size:clamp(50px,8vw,110px);
+line-height:.9;
+margin:25px 0 35px;
 }
 
-.about-inner p{
-    color:#93867c;
-    line-height:2.3;
+.about p{
+color:#93867d;
+line-height:2.4;
 }
-
-/* CONTACT */
 
 .contact{
-    min-height:70vh;
-    padding:120px 7%;
-
-    background:#050302;
+position:relative;
+z-index:10;
+padding:140px 7%;
+background:#030201;
 }
 
-.contact-title{
-    text-align:center;
-    margin-bottom:80px;
+.contactTitle{
+text-align:center;
+margin-bottom:70px;
 }
 
-.contact-title h2{
-    font-size:clamp(45px,7vw,85px);
+.contactTitle h2{
+font-size:clamp(45px,7vw,90px);
 }
 
-.contact-grid{
-    max-width:1000px;
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    border-top:1px solid rgba(255,255,255,.08);
-    border-bottom:1px solid rgba(255,255,255,.08);
+.contactGrid{
+max-width:1000px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+border-top:1px solid #211811;
+border-bottom:1px solid #211811;
 }
 
-.contact-box{
-    padding:50px 30px;
-    text-align:center;
-
-    border-left:1px solid rgba(255,255,255,.08);
+.contactBox{
+padding:45px 20px;
+text-align:center;
+border-left:1px solid #211811;
 }
 
-.contact-box:last-child{
-    border-left:0;
+.contactBox:last-child{
+border-left:0;
 }
 
-.contact-box span{
-    color:#d9a45f;
-    font-size:9px;
-    letter-spacing:4px;
+.contactBox span{
+font-size:9px;
+letter-spacing:4px;
+color:#d9a45f;
 }
 
-.contact-box h3{
-    margin:15px 0;
+.contactBox h3{
+margin:15px 0;
 }
 
-.contact-box p{
-    color:#766b64;
-    font-size:13px;
-    line-height:2;
+.contactBox p{
+font-size:12px;
+line-height:2;
+color:#756a63;
 }
-
-/* FOOTER */
 
 footer{
-    position:relative;
-    z-index:20;
-
-    padding:70px 6% 30px;
-
-    background:#030201;
-
-    text-align:center;
+position:relative;
+z-index:10;
+text-align:center;
+padding:75px 20px 35px;
+background:#020100;
 }
 
-.footer-logo{
-    font-size:40px;
-    font-weight:800;
-    letter-spacing:12px;
+.footerLogo{
+font-size:48px;
+font-weight:800;
+letter-spacing:13px;
 }
 
-.footer-text{
-    color:#514943;
-    font-size:10px;
-    letter-spacing:4px;
-    margin-top:15px;
+.footerText{
+margin-top:15px;
+font-size:9px;
+letter-spacing:4px;
+color:#514842;
 }
-
-/* REVEAL */
-
-.reveal{
-    opacity:0;
-    transform:translateY(60px);
-    transition:
-        opacity 1s ease,
-        transform 1s cubic-bezier(.2,.8,.2,1);
-}
-
-.reveal.show{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* MOBILE */
 
 @media(max-width:900px){
 
-    .nav-links{
-        display:none;
-    }
+nav a{
+display:none;
+}
 
-    .hero-copy{
-        right:7%;
-        left:7%;
-        top:37%;
-        text-align:center;
-    }
+.hero{
+justify-content:center;
+text-align:center;
+}
 
-    .hero-copy p{
-        margin-left:auto;
-        margin-right:auto;
-    }
+.hero p{
+margin-left:auto;
+margin-right:auto;
+}
 
-    .products{
-        grid-template-columns:1fr 1fr;
-    }
+.galleryGrid,
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
 
-    .product{
-        height:450px;
-    }
+.special img{
+opacity:.25;
+transform:none;
+}
 
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .contact-box{
-        border-left:0;
-        border-bottom:1px solid rgba(255,255,255,.08);
-    }
-
-    .contact-box:last-child{
-        border-bottom:0;
-    }
 }
 
 @media(max-width:600px){
 
-    .hero{
-        min-height:700px;
-    }
-
-    .hero-copy h1{
-        font-size:65px;
-    }
-
-    .products{
-        grid-template-columns:1fr;
-    }
-
-    .product{
-        height:500px;
-    }
-
-    .section{
-        padding:100px 7%;
-    }
-
-    .feature-image{
-        width:75vw;
-        height:55vh;
-    }
+.hero h1{
+font-size:75px;
 }
 
+.galleryGrid,
+.cards,
+.contactGrid{
+grid-template-columns:1fr;
+}
+
+.contactBox{
+border-left:0;
+border-bottom:1px solid #211811;
+}
+
+.contactBox:last-child{
+border-bottom:0;
+}
+
+.special img{
+width:75vw;
+height:450px;
+}
+
+}
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
-
-<div class="loader" id="loader">
-
-    <div class="loader-inner">
-
-        <div class="loader-logo">
-            NOIR
-        </div>
-
-        <div class="loader-line"></div>
-
-        <div class="loader-text">
-            ENTER THE EXPERIENCE
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- THREE.JS -->
-
-<div id="webgl"></div>
-
-<div class="overlay"></div>
-
-<div class="noise"></div>
-
-
-<!-- NAV -->
+<div id="scene"></div>
 
 <nav>
+<div class="logo">NOIR</div>
 
-    <div class="logo">
-        NOIR
-    </div>
-
-    <div class="nav-links">
-
-        <a href="#home">خانه</a>
-        <a href="#experience">تجربه</a>
-        <a href="#menu">منو</a>
-        <a href="#about">درباره</a>
-        <a href="#contact">تماس</a>
-
-    </div>
-
+<div>
+<a href="#home">خانه</a>
+<a href="#experience">تجربه</a>
+<a href="#menu">منو</a>
+<a href="#about">درباره ما</a>
+<a href="#contact">تماس</a>
+</div>
 </nav>
 
 
-<!-- HERO -->
-
 <section class="hero" id="home">
 
-    <div class="hero-copy">
+<div class="heroContent">
 
-        <div class="mini-title">
-            IMMERSIVE COFFEE EXPERIENCE
-        </div>
+<div class="tag">
+IMMERSIVE COFFEE EXPERIENCE
+</div>
 
-        <h1>
-            NOIR
-            <br>
-            <span>COFFEE</span>
-        </h1>
+<h1>
+NOIR
+<br>
+<span class="gold">COFFEE</span>
+</h1>
 
-        <p>
-            یک تجربه متفاوت از قهوه،
-            دسر و طراحی دیجیتال.
-            وارد دنیای NOIR شو.
-        </p>
+<p>
+اینجا فقط یک کافه نیست؛
+یک تجربه‌ی تاریک، گرم و متفاوت
+از قهوه، نور و طراحی است.
+</p>
 
-        <a href="#menu" class="hero-button">
-            مشاهده منو
-            <span>←</span>
-        </a>
+<a class="button" href="#menu">
+مشاهده منو ←
+</a>
 
-    </div>
+</div>
 
-    <div class="scroll-indicator">
-        SCROLL
-    </div>
-
-</section>
-
-
-<div class="content">
-
-
-<!-- EXPERIENCE -->
-
-<section class="section section-dark reveal" id="experience">
-
-    <div class="section-title">
-
-        <div class="section-label">
-            THE EXPERIENCE
-        </div>
-
-        <h2>
-            قهوه،
-            <br>
-            اما متفاوت.
-        </h2>
-
-        <p>
-            NOIR فقط جایی برای نوشیدن قهوه نیست.
-            اینجا فضایی ساخته شده برای مکث،
-            گفتگو و تجربه کردن لحظه‌ای متفاوت.
-        </p>
-
-    </div>
+<div class="scroll">
+SCROLL TO EXPLORE ↓
+</div>
 
 </section>
 
 
-<!-- MENU -->
-
-<section class="menu-section" id="menu">
-
-    <div class="menu-header reveal">
-
-        <div class="section-label">
-            OUR MENU
-        </div>
-
-        <h2>
-            منوی NOIR
-        </h2>
-
-        <p>
-            انتخاب کن. تجربه کن.
-        </p>
-
-    </div>
-
-
-    <div class="products">
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="5.jpeg" alt="موکا">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    01 / COFFEE
-                </div>
-
-                <h3>موکا</h3>
-
-                <p>
-                    ترکیب قهوه، شیر و شکلات
-                    برای یک طعم عمیق و نرم.
-                </p>
-
-                <span class="product-price">
-                    ۱۸۰,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="6.jpeg" alt="آمریکانو">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    02 / COFFEE
-                </div>
-
-                <h3>آمریکانو</h3>
-
-                <p>
-                    اسپرسوی کلاسیک با
-                    طعم قوی و متعادل.
-                </p>
-
-                <span class="product-price">
-                    ۱۴۰,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="7.jpeg" alt="کیک شکلاتی">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    03 / DESSERT
-                </div>
-
-                <h3>کیک شکلاتی</h3>
-
-                <p>
-                    کیک نرم و شکلاتی
-                    برای همراهی با قهوه.
-                </p>
-
-                <span class="product-price">
-                    ۱۹۵,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="8.jpeg" alt="لاته">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    04 / COFFEE
-                </div>
-
-                <h3>لاته</h3>
-
-                <p>
-                    اسپرسو، شیر و فوم لطیف
-                    با طعمی آرام و خامه‌ای.
-                </p>
-
-                <span class="product-price">
-                    ۱۶۰,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="9.jpeg" alt="شیک شکلات">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    05 / SHAKE
-                </div>
-
-                <h3>شیک شکلات</h3>
-
-                <p>
-                    خنک، خامه‌ای و
-                    پر از طعم شکلات.
-                </p>
-
-                <span class="product-price">
-                    ۲۲۰,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="10.jpeg" alt="کیک توت فرنگی">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    06 / DESSERT
-                </div>
-
-                <h3>کیک توت‌فرنگی</h3>
-
-                <p>
-                    ترکیب لطیف کیک،
-                    خامه و توت‌فرنگی.
-                </p>
-
-                <span class="product-price">
-                    ۲۰۵,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-
-        <article class="product reveal">
-
-            <div class="product-image">
-                <img src="11.jpeg" alt="شیک موز شکلات">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-number">
-                    07 / SHAKE
-                </div>
-
-                <h3>شیک موز شکلات</h3>
-
-                <p>
-                    موز، شیر و شکلات
-                    در ترکیبی خامه‌ای.
-                </p>
-
-                <span class="product-price">
-                    ۲۳۰,۰۰۰ تومان
-                </span>
-
-            </div>
-
-        </article>
-
-    </div>
+<section class="section" id="experience">
+
+<div class="sectionText">
+
+<div class="tag">
+THE NOIR EXPERIENCE
+</div>
+
+<h2>
+قهوه،
+<br>
+به شکل دیگری.
+</h2>
+
+<p>
+در NOIR هر فنجان بخشی از یک تجربه است.
+نور گرم، فضای تاریک، عطر قهوه و طراحی
+سه‌بعدی کنار هم قرار گرفته‌اند تا یک
+کافه‌ی معمولی نباشد.
+</p>
+
+</div>
 
 </section>
 
 
-<!-- FEATURE -->
+<section class="special">
 
-<section class="feature reveal">
+<img src="2.jpeg" alt="کاپوچینو">
 
-    <img
-        src="4.jpeg"
-        class="feature-image"
-        alt=""
-    >
+<div class="specialText">
 
-    <div class="feature-text">
+<div class="tag">
+SIGNATURE DRINK
+</div>
 
-        <div class="section-label">
-            A MOMENT
-        </div>
+<h2>
+CAPPUCCINO
+</h2>
 
-        <h2>
-            مکث کن.
-        </h2>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- ABOUT -->
+<section class="gallery">
 
-<section class="about reveal" id="about">
+<div class="galleryTitle">
 
-    <div class="about-inner">
+<div class="tag">
+NOIR ATMOSPHERE
+</div>
 
-        <div class="section-label">
-            ABOUT NOIR
-        </div>
+<h2>
+فضای ما
+</h2>
 
-        <h2>
-            هر فنجان،
-            <br>
-            یک داستان.
-        </h2>
+</div>
 
-        <p>
-            ما باور داریم یک کافه خوب فقط
-            درباره نوشیدنی نیست؛ درباره حسی است
-            که وقتی از در خارج می‌شوی با خودت
-            می‌بری.
-        </p>
+<div class="galleryGrid">
 
-    </div>
+<div class="galleryCard">
+<img src="1.jpeg" alt="کاور کافه">
+<div><h3>NOIR</h3></div>
+</div>
 
-</section>
+<div class="galleryCard">
+<img src="3.jpeg" alt="قهوه">
+<div><h3>Signature Coffee</h3></div>
+</div>
 
+<div class="galleryCard">
+<img src="4.jpeg" alt="دکور">
+<div><h3>Our Atmosphere</h3></div>
+</div>
 
-<!-- CONTACT -->
-
-<section class="contact" id="contact">
-
-    <div class="contact-title reveal">
-
-        <div class="section-label">
-            FIND US
-        </div>
-
-        <h2>
-            منتظرت هستیم.
-        </h2>
-
-    </div>
-
-
-    <div class="contact-grid">
-
-        <div class="contact-box reveal">
-
-            <span>
-                LOCATION
-            </span>
-
-            <h3>
-                آدرس
-            </h3>
-
-            <p>
-                تهران، خیابان ولیعصر
-            </p>
-
-        </div>
-
-
-        <div class="contact-box reveal">
-
-            <span>
-                HOURS
-            </span>
-
-            <h3>
-                ساعت کاری
-            </h3>
-
-            <p>
-                شنبه تا پنجشنبه
-                <br>
-                ۹:۰۰ تا ۲۳:۳۰
-            </p>
-
-        </div>
-
-
-        <div class="contact-box reveal">
-
-            <span>
-                CONTACT
-            </span>
-
-            <h3>
-                تماس
-            </h3>
-
-            <p>
-                ۰۲۱-۱۲۳۴۵۶۷۸
-            </p>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-<!-- FOOTER -->
+<section class="menu" id="menu">
 
-<footer>
+<div class="menuHeader">
 
-    <div class="footer-logo">
-        NOIR
-    </div>
+<div class="tag">
+OUR MENU
+</div>
 
-    <div class="footer-text">
-        IMMERSIVE COFFEE EXPERIENCE
-    </div>
+<h2>
+منوی NOIR
+</h2>
 
-</footer>
+<p>
+انتخاب کن؛ تجربه کن.
+</p>
 
 </div>
 
 
-<!-- THREE.JS -->
+<div class="cards">
+
+
+<div class="card">
+<img src="5.jpeg" alt="موکا">
+<div class="cardInfo">
+<div class="number">01 / COFFEE</div>
+<h3>موکا</h3>
+<p>اسپرسو، شیر و شکلات با طعمی عمیق.</p>
+<span class="price">۱۸۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="6.jpeg" alt="آمریکانو">
+<div class="cardInfo">
+<div class="number">02 / COFFEE</div>
+<h3>آمریکانو</h3>
+<p>قهوه‌ای کلاسیک، ساده و قدرتمند.</p>
+<span class="price">۱۴۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="7.jpeg" alt="کیک شکلاتی">
+<div class="cardInfo">
+<div class="number">03 / DESSERT</div>
+<h3>کیک شکلاتی</h3>
+<p>کیک نرم با طعم عمیق شکلات.</p>
+<span class="price">۱۹۵,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="8.jpeg" alt="لاته">
+<div class="cardInfo">
+<div class="number">04 / COFFEE</div>
+<h3>لاته</h3>
+<p>اسپرسو، شیر و فوم لطیف.</p>
+<span class="price">۱۶۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="9.jpeg" alt="شیک شکلات">
+<div class="cardInfo">
+<div class="number">05 / SHAKE</div>
+<h3>شیک شکلات</h3>
+<p>خنک، خامه‌ای و شکلاتی.</p>
+<span class="price">۲۲۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="10.jpeg" alt="کیک توت فرنگی">
+<div class="cardInfo">
+<div class="number">06 / DESSERT</div>
+<h3>کیک توت‌فرنگی</h3>
+<p>کیک لطیف با خامه و توت‌فرنگی.</p>
+<span class="price">۲۰۵,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="11.jpeg" alt="شیک موز شکلات">
+<div class="cardInfo">
+<div class="number">07 / SHAKE</div>
+<h3>شیک موز شکلات</h3>
+<p>موز، شیر و شکلات.</p>
+<span class="price">۲۳۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="3.jpeg" alt="قهوه مخصوص">
+<div class="cardInfo">
+<div class="number">08 / SIGNATURE</div>
+<h3>NOIR Coffee</h3>
+<p>قهوه مخصوص NOIR.</p>
+<span class="price">۱۹۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+<div class="card">
+<img src="2.jpeg" alt="کاپوچینو">
+<div class="cardInfo">
+<div class="number">09 / SIGNATURE</div>
+<h3>کاپوچینو</h3>
+<p>اسپرسو، شیر و فوم مخملی.</p>
+<span class="price">۱۷۰,۰۰۰ تومان</span>
+</div>
+</div>
+
+
+</div>
+</section>
+
+
+<section class="about" id="about">
+
+<div class="aboutInner">
+
+<div class="tag">
+ABOUT NOIR
+</div>
+
+<h2>
+هر فنجان،
+<br>
+یک داستان.
+</h2>
+
+<p>
+NOIR جایی برای چند دقیقه دور شدن
+از شلوغی روزمره است؛ جایی که قهوه،
+طراحی و فضا یک تجربه‌ی واحد می‌سازند.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="contact" id="contact">
+
+<div class="contactTitle">
+
+<div class="tag">
+FIND US
+</div>
+
+<h2>
+منتظرت هستیم.
+</h2>
+
+</div>
+
+<div class="contactGrid">
+
+<div class="contactBox">
+<span>LOCATION</span>
+<h3>آدرس</h3>
+<p>تهران، خیابان ولیعصر</p>
+</div>
+
+<div class="contactBox">
+<span>HOURS</span>
+<h3>ساعت کاری</h3>
+<p>شنبه تا پنجشنبه<br>۹ صبح تا ۱۱:۳۰ شب</p>
+</div>
+
+<div class="contactBox">
+<span>CONTACT</span>
+<h3>تماس</h3>
+<p>۰۲۱-۱۲۳۴۵۶۷۸</p>
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="footerLogo">
+NOIR
+</div>
+
+<div class="footerText">
+IMMERSIVE COFFEE EXPERIENCE
+</div>
+
+</footer>
+
 
 <script type="module">
 
 import * as THREE from
 "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
-import { OrbitControls } from
-"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js";
 
+const sceneContainer =
+document.getElementById("scene");
 
-/* ================================
-   BASIC SETUP
-================================ */
-
-const container =
-document.getElementById("webgl");
 
 const scene =
 new THREE.Scene();
-
-scene.background =
-new THREE.Color(0x050403);
 
 
 /* CAMERA */
 
 const camera =
 new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    .1,
-    100
+45,
+window.innerWidth /
+window.innerHeight,
+.1,
+100
 );
 
 camera.position.set(
-    0,
-    1.7,
-    7
+0,
+1,
+8
 );
 
 
@@ -1280,870 +898,590 @@ camera.position.set(
 
 const renderer =
 new THREE.WebGLRenderer({
-    antialias:true,
-    alpha:true
+antialias:true,
+alpha:true
 });
 
 renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio,2)
-);
+Math.min(
+window.devicePixelRatio,
+2
+));
 
 renderer.setSize(
-    window.innerWidth,
-    window.innerHeight
+window.innerWidth,
+window.innerHeight
 );
 
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled=true;
 
-renderer.shadowMap.type =
+renderer.shadowMap.type=
 THREE.PCFSoftShadowMap;
 
-renderer.toneMapping =
+renderer.toneMapping=
 THREE.ACESFilmicToneMapping;
 
-renderer.toneMappingExposure = 1.2;
+renderer.toneMappingExposure=1.35;
 
-container.appendChild(
-    renderer.domElement
+sceneContainer.appendChild(
+renderer.domElement
 );
 
 
-/* ================================
-   CAMERA CONTROL
-================================ */
-
-const controls =
-new OrbitControls(
-    camera,
-    renderer.domElement
-);
-
-controls.enableDamping = true;
-
-controls.enableZoom = false;
-
-controls.enablePan = false;
-
-controls.minPolarAngle = 1.1;
-
-controls.maxPolarAngle = 2.0;
-
-controls.minAzimuthAngle = -.65;
-
-controls.maxAzimuthAngle = .65;
-
-
-/* ================================
-   LIGHTING
-================================ */
+/* LIGHTING */
 
 const ambient =
-new THREE.HemisphereLight(
-    0xffead2,
-    0x100704,
-    1.5
+new THREE.AmbientLight(
+0xffe6d0,
+1.4
 );
 
 scene.add(ambient);
 
 
-const keyLight =
+const goldLight =
 new THREE.PointLight(
-    0xffc477,
-    45,
-    15
+0xffa94d,
+65,
+20
 );
 
-keyLight.position.set(
-    2,
-    4,
-    3
+goldLight.position.set(
+3,
+4,
+4
 );
 
-keyLight.castShadow = true;
+goldLight.castShadow=true;
 
-scene.add(keyLight);
+scene.add(goldLight);
 
 
-const sideLight =
+const redLight =
 new THREE.PointLight(
-    0x9c5c2c,
-    30,
-    12
+0x9e3f18,
+40,
+18
 );
 
-sideLight.position.set(
-    -4,
-    2,
-    -2
+redLight.position.set(
+-4,
+1,
+2
 );
 
-scene.add(sideLight);
+scene.add(redLight);
 
 
-/* ================================
-   FLOOR
-================================ */
-
-const floorGeometry =
-new THREE.PlaneGeometry(
-    30,
-    30
-);
-
-const floorMaterial =
-new THREE.MeshStandardMaterial({
-    color:0x100a07,
-    roughness:.78,
-    metalness:.15
-});
-
-const floor =
-new THREE.Mesh(
-    floorGeometry,
-    floorMaterial
-);
-
-floor.rotation.x =
--Math.PI / 2;
-
-floor.position.y = -1;
-
-floor.receiveShadow = true;
-
-scene.add(floor);
-
-
-/* ================================
-   BACK WALL
-================================ */
-
-const wallGeometry =
-new THREE.PlaneGeometry(
-    30,
-    15
-);
-
-const wallMaterial =
-new THREE.MeshStandardMaterial({
-    color:0x0c0806,
-    roughness:.9
-});
-
-const wall =
-new THREE.Mesh(
-    wallGeometry,
-    wallMaterial
-);
-
-wall.position.set(
-    0,
-    5,
-    -4
-);
-
-scene.add(wall);
-
-
-/* ================================
-   TABLE
-================================ */
-
-const tableTopGeometry =
-new THREE.CylinderGeometry(
-    2.1,
-    2.1,
-    .18,
-    64
-);
+/* TABLE */
 
 const tableMaterial =
 new THREE.MeshStandardMaterial({
-    color:0x3a2113,
-    roughness:.5,
-    metalness:.15
+color:0x3a1b0c,
+roughness:.28,
+metalness:.25
 });
 
-const tableTop =
+
+const table =
 new THREE.Mesh(
-    tableTopGeometry,
-    tableMaterial
-);
-
-tableTop.position.y = -.15;
-
-tableTop.castShadow = true;
-
-scene.add(tableTop);
-
-
-/* TABLE LEG */
-
-const legGeometry =
 new THREE.CylinderGeometry(
-    .22,
-    .35,
-    2,
-    32
+3,
+3,
+.22,
+64
+),
+tableMaterial
 );
+
+table.position.y=-2.25;
+
+table.castShadow=true;
+
+scene.add(table);
+
 
 const leg =
 new THREE.Mesh(
-    legGeometry,
-    tableMaterial
+new THREE.CylinderGeometry(
+.3,
+.45,
+1,
+32
+),
+tableMaterial
 );
 
-leg.position.y = -1.1;
+leg.position.y=-2.8;
 
-leg.castShadow = true;
+leg.castShadow=true;
 
 scene.add(leg);
 
 
-/* ================================
-   COFFEE CUP
-================================ */
+/* CUP */
 
-const cupGeometry =
-new THREE.CylinderGeometry(
-    .58,
-    .48,
-    .55,
-    64
-);
+const cupGroup =
+new THREE.Group();
+
+scene.add(cupGroup);
+
 
 const cupMaterial =
-new THREE.MeshStandardMaterial({
-    color:0x22140d,
-    roughness:.28,
-    metalness:.25
+new THREE.MeshPhysicalMaterial({
+color:0x2b1408,
+roughness:.17,
+metalness:.18,
+clearcoat:1,
+clearcoatRoughness:.08
 });
+
 
 const cup =
 new THREE.Mesh(
-    cupGeometry,
-    cupMaterial
+new THREE.CylinderGeometry(
+.9,
+.68,
+.9,
+64
+),
+cupMaterial
 );
 
-cup.position.set(
-    0,
-    .25,
-    0
-);
+cup.position.y=-1.25;
 
-cup.castShadow = true;
+cup.castShadow=true;
 
-scene.add(cup);
+cupGroup.add(cup);
 
 
 /* COFFEE */
 
-const coffeeGeometry =
-new THREE.CylinderGeometry(
-    .49,
-    .49,
-    .025,
-    64
-);
-
-const coffeeMaterial =
-new THREE.MeshStandardMaterial({
-    color:0x130703,
-    roughness:.2
-});
-
 const coffee =
 new THREE.Mesh(
-    coffeeGeometry,
-    coffeeMaterial
+new THREE.CylinderGeometry(
+.73,
+.73,
+.055,
+64
+),
+new THREE.MeshStandardMaterial({
+color:0x100301,
+roughness:.08
+})
 );
 
-coffee.position.set(
-    0,
-    .535,
-    0
-);
+coffee.position.y=-.79;
 
-scene.add(coffee);
+cupGroup.add(coffee);
 
 
-/* ================================
-   CUP HANDLE
-================================ */
+/* CREMA */
 
-const handleGeometry =
+const crema =
+new THREE.Mesh(
 new THREE.TorusGeometry(
-    .28,
-    .07,
-    16,
-    50,
-    Math.PI * 1.4
+.55,
+.035,
+12,
+64
+),
+new THREE.MeshStandardMaterial({
+color:0x9a5220,
+roughness:.2
+})
 );
+
+crema.position.y=-.755;
+
+cupGroup.add(crema);
+
+
+/* HANDLE */
 
 const handle =
 new THREE.Mesh(
-    handleGeometry,
-    cupMaterial
+new THREE.TorusGeometry(
+.43,
+.11,
+24,
+64
+),
+cupMaterial
 );
+
+handle.rotation.y=
+Math.PI/2;
 
 handle.position.set(
-    .57,
-    .27,
-    0
+.84,
+-1.23,
+0
 );
 
-handle.rotation.z =
--Math.PI / 2;
+handle.castShadow=true;
 
-handle.rotation.y =
-Math.PI / 2;
-
-scene.add(handle);
+cupGroup.add(handle);
 
 
-/* ================================
-   STEAM
-================================ */
+/* SAUCER */
 
-const steamMaterial =
-new THREE.MeshBasicMaterial({
-    color:0xe8d6c4,
-    transparent:true,
-    opacity:.16
-});
+const saucer =
+new THREE.Mesh(
+new THREE.CylinderGeometry(
+1.25,
+1.12,
+.1,
+64
+),
+new THREE.MeshStandardMaterial({
+color:0x17100c,
+roughness:.22,
+metalness:.35
+})
+);
+
+saucer.position.y=-1.76;
+
+saucer.castShadow=true;
+
+cupGroup.add(saucer);
+
+
+/* STEAM */
 
 const steamGroup =
 new THREE.Group();
 
-for(let i=0;i<6;i++){
-
-    const geometry =
-    new THREE.TorusGeometry(
-        .07,
-        .012,
-        8,
-        20
-    );
-
-    const steam =
-    new THREE.Mesh(
-        geometry,
-        steamMaterial
-    );
-
-    steam.position.set(
-        (Math.random()-.5)*.25,
-        .8 + i*.13,
-        (Math.random()-.5)*.12
-    );
-
-    steam.rotation.x =
-    Math.PI/2;
-
-    steamGroup.add(steam);
-}
-
 scene.add(steamGroup);
 
+const steamMaterial =
+new THREE.MeshBasicMaterial({
+color:0xffffff,
+transparent:true,
+opacity:.15
+});
 
-/* ================================
-   DECORATIVE RINGS
-================================ */
+const steam=[];
+
+for(let i=0;i<20;i++){
+
+const p =
+new THREE.Mesh(
+new THREE.SphereGeometry(
+.055,
+12,
+12
+),
+steamMaterial
+);
+
+p.position.set(
+(Math.random()-.5)*.7,
+-.55+
+Math.random()*2.6,
+(Math.random()-.5)*.25
+);
+
+p.userData={
+speed:.004+
+Math.random()*.006,
+offset:Math.random()*10,
+baseX:p.position.x
+};
+
+steam.push(p);
+
+steamGroup.add(p);
+
+}
+
+
+/* FLOATING RINGS */
+
+const rings =
+new THREE.Group();
+
+scene.add(rings);
 
 const ringMaterial =
 new THREE.MeshBasicMaterial({
-    color:0xd9a45f,
-    transparent:true,
-    opacity:.22
+color:0xd9a45f,
+transparent:true,
+opacity:.28
 });
 
-for(let i=0;i<3;i++){
+for(let i=0;i<6;i++){
 
-    const ring =
-    new THREE.Mesh(
-        new THREE.TorusGeometry(
-            2.5 + i*.7,
-            .008,
-            8,
-            100
-        ),
-        ringMaterial
-    );
+const ring =
+new THREE.Mesh(
+new THREE.TorusGeometry(
+2.7+i*.5,
+.018,
+10,
+100
+),
+ringMaterial
+);
 
-    ring.rotation.x =
-    Math.PI / 2;
+ring.rotation.x=
+Math.PI/2;
 
-    ring.position.y =
-    -.7 + i*.25;
+ring.position.y=
+-2+i*.14;
 
-    scene.add(ring);
+rings.add(ring);
+
 }
 
 
-/* ================================
-   FLOATING PARTICLES
-================================ */
+/* PARTICLES */
 
-const particleGeometry =
-new THREE.BufferGeometry();
-
-const particleCount = 180;
+const particleCount=450;
 
 const positions =
 new Float32Array(
-    particleCount * 3
+particleCount*3
 );
 
 for(let i=0;i<particleCount;i++){
 
-    positions[i*3] =
-        (Math.random()-.5)*14;
+positions[i*3]=
+(Math.random()-.5)*18;
 
-    positions[i*3+1] =
-        Math.random()*8-2;
+positions[i*3+1]=
+(Math.random()-.5)*13;
 
-    positions[i*3+2] =
-        (Math.random()-.5)*12;
+positions[i*3+2]=
+(Math.random()-.5)*12;
+
 }
 
-particleGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-        positions,
-        3
-    )
+const geometry =
+new THREE.BufferGeometry();
+
+geometry.setAttribute(
+"position",
+new THREE.BufferAttribute(
+positions,
+3
+)
 );
 
 const particleMaterial =
 new THREE.PointsMaterial({
-    color:0xd9a45f,
-    size:.025,
-    transparent:true,
-    opacity:.55
+color:0xd9a45f,
+size:.025,
+transparent:true,
+opacity:.55
 });
 
 const particles =
 new THREE.Points(
-    particleGeometry,
-    particleMaterial
+geometry,
+particleMaterial
 );
 
 scene.add(particles);
 
 
-/* ================================
-   MOUSE
-================================ */
+/* DECORATIVE IMAGE */
 
-let mouseX = 0;
-let mouseY = 0;
+const textureLoader =
+new THREE.TextureLoader();
 
-let targetX = 0;
-let targetY = 0;
+const coffeeTexture =
+textureLoader.load("3.jpeg");
 
-window.addEventListener(
-    "mousemove",
-    (event)=>{
+const imageMaterial =
+new THREE.MeshBasicMaterial({
+map:coffeeTexture,
+transparent:true,
+side:THREE.DoubleSide
+});
 
-        mouseX =
-        (event.clientX /
-        window.innerWidth) - .5;
-
-        mouseY =
-        (event.clientY /
-        window.innerHeight) - .5;
-
-    }
+const imagePlane =
+new THREE.Mesh(
+new THREE.PlaneGeometry(
+2.5,
+3.2
+),
+imageMaterial
 );
 
-
-/* ================================
-   SCROLL
-================================ */
-
-let scrollY = 0;
-
-window.addEventListener(
-    "scroll",
-    ()=>{
-
-        scrollY =
-        window.scrollY;
-
-    }
+imagePlane.position.set(
+-3.6,
+.4,
+-1
 );
 
+imagePlane.rotation.y=.35;
 
-/* ================================
-   ANIMATION
-================================ */
+scene.add(imagePlane);
+
+
+/* MOUSE */
+
+let mouseX=0;
+let mouseY=0;
+
+window.addEventListener(
+"mousemove",
+e=>{
+
+mouseX=
+e.clientX/
+window.innerWidth-.5;
+
+mouseY=
+e.clientY/
+window.innerHeight-.5;
+
+});
+
+
+/* ANIMATION */
 
 const clock =
 new THREE.Clock();
 
 function animate(){
 
-    requestAnimationFrame(
-        animate
-    );
+requestAnimationFrame(
+animate
+);
 
-    const elapsed =
-    clock.getElapsedTime();
-
-
-    /* smooth mouse */
-
-    targetX +=
-    (mouseX-targetX)*.035;
-
-    targetY +=
-    (mouseY-targetY)*.035;
+const t =
+clock.getElapsedTime();
 
 
-    /* camera movement */
+/* CAMERA */
 
-    camera.position.x =
-    targetX * 1.3;
+camera.position.x +=
+(mouseX*1.2-
+camera.position.x)*.025;
 
-    camera.position.y =
-    1.7 -
-    targetY * .7;
+camera.position.y +=
+(1-
+mouseY*.6-
+camera.position.y)*.025;
 
-
-    camera.lookAt(
-        0,
-        .1,
-        0
-    );
-
-
-    /* cup floating */
-
-    cup.position.y =
-    .25 +
-    Math.sin(elapsed*1.4)*.025;
-
-    coffee.position.y =
-    .535 +
-    Math.sin(elapsed*1.4)*.025;
-
-    handle.position.y =
-    .27 +
-    Math.sin(elapsed*1.4)*.025;
+camera.lookAt(
+0,
+-.3,
+0
+);
 
 
-    /* steam */
+/* CUP */
 
-    steamGroup.children
-    .forEach((steam,index)=>{
+cupGroup.position.y=
+Math.sin(t*1.4)*.1;
 
-        steam.position.y =
-        .8 +
-        index*.13 +
-        Math.sin(
-            elapsed*1.5+index
-        )*.035;
+cupGroup.rotation.y=
+Math.sin(t*.55)*.12;
 
-        steam.rotation.z =
-        Math.sin(
-            elapsed+index
-        )*.3;
-
-    });
+cupGroup.rotation.z=
+Math.sin(t*.8)*.018;
 
 
-    /* rings */
+/* STEAM */
 
-    scene.children
-    .forEach((object,index)=>{
+steam.forEach((p,i)=>{
 
-        if(
-            object.geometry &&
-            object.geometry.type ===
-            "TorusGeometry"
-        ){
+p.position.y +=
+p.userData.speed;
 
-            object.rotation.z +=
-            .0008*(index+1);
+p.position.x =
+p.userData.baseX+
+Math.sin(
+t*1.5+
+p.userData.offset
+)*.16;
 
-        }
+p.material.opacity =
+.04+
+(Math.sin(t*2+i)+1)*.06;
 
-    });
+if(p.position.y>2.5){
+p.position.y=-.55;
+}
 
-
-    /* particles */
-
-    particles.rotation.y =
-    elapsed*.025;
-
-    particles.rotation.x =
-    Math.sin(elapsed*.1)*.04;
+});
 
 
-    controls.update();
+/* RINGS */
 
-    renderer.render(
-        scene,
-        camera
-    );
+rings.rotation.z=
+t*.12;
+
+rings.rotation.y=
+Math.sin(t*.3)*.15;
+
+
+/* PARTICLES */
+
+particles.rotation.y=
+t*.012;
+
+particles.rotation.x=
+Math.sin(t*.2)*.03;
+
+
+/* IMAGE */
+
+imagePlane.position.y=
+.4+
+Math.sin(t*.8)*.12;
+
+imagePlane.rotation.y=
+.35+
+Math.sin(t*.5)*.1;
+
+
+/* LIGHT */
+
+goldLight.position.x=
+3+
+Math.sin(t*.5)*1.3;
+
+goldLight.position.z=
+4+
+Math.cos(t*.4);
+
+
+/* RENDER */
+
+renderer.render(
+scene,
+camera
+);
+
 }
 
 animate();
 
 
-/* ================================
-   RESIZE
-================================ */
+/* RESIZE */
 
 window.addEventListener(
-    "resize",
-    ()=>{
+"resize",
+()=>{
 
-        camera.aspect =
-        window.innerWidth /
-        window.innerHeight;
+camera.aspect=
+window.innerWidth/
+window.innerHeight;
 
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(
-            window.innerWidth,
-            window.innerHeight
-        );
-
-    }
-);
-
-</script>
-
-
-<script>
-
-/* ================================
-   LOADER
-================================ */
-
-window.addEventListener(
-    "load",
-    ()=>{
-
-        setTimeout(()=>{
-
-            document
-            .getElementById("loader")
-            .classList.add("hide");
-
-            document.body.classList.add(
-                "loaded"
-            );
-
-        },2200);
-
-    }
-);
-
-
-/* ================================
-   REVEAL
-================================ */
-
-const elements =
-document.querySelectorAll(
-    ".reveal"
-);
-
-const observer =
-new IntersectionObserver(
-    entries=>{
-
-        entries.forEach(
-            entry=>{
-
-                if(
-                    entry.isIntersecting
-                ){
-
-                    entry.target
-                    .classList.add(
-                        "show"
-                    );
-
-                }
-
-            }
-        );
-
-    },
-    {
-        threshold:.12
-    }
-);
-
-elements.forEach(
-    element=>{
-        observer.observe(element);
-    }
-);
-
-
-/* ================================
-   PRODUCT TILT
-================================ */
-
-document
-.querySelectorAll(".product")
-.forEach(card=>{
-
-    card.addEventListener(
-        "mousemove",
-        event=>{
-
-            const rect =
-            card.getBoundingClientRect();
-
-            const x =
-            event.clientX -
-            rect.left;
-
-            const y =
-            event.clientY -
-            rect.top;
-
-            const rx =
-            ((y/rect.height)-.5)*-5;
-
-            const ry =
-            ((x/rect.width)-.5)*7;
-
-            card.style.transform =
-            `perspective(900px)
-             rotateX(${rx}deg)
-             rotateY(${ry}deg)
-             translateY(-15px)
-             scale(1.015)`;
-
-        }
-    );
-
-    card.addEventListener(
-        "mouseleave",
-        ()=>{
-            card.style.transform="";
-        }
-    );
-
-});
-
-</script>
-
-    <script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-
-camera.position.z = 5;
-
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  alpha: true
-});
+camera.updateProjectionMatrix();
 
 renderer.setSize(
-  window.innerWidth,
-  window.innerHeight
+window.innerWidth,
+window.innerHeight
 );
 
-renderer.domElement.style.position = "fixed";
-renderer.domElement.style.inset = "0";
-renderer.domElement.style.zIndex = "999";
-renderer.domElement.style.pointerEvents = "none";
-
-document.body.appendChild(renderer.domElement);
-
-
-/* مکعب سه‌بعدی */
-
-const geometry = new THREE.BoxGeometry(2, 2, 2);
-
-const material = new THREE.MeshStandardMaterial({
-  color: 0xd9a45f,
-  metalness: 0.5,
-  roughness: 0.25
 });
 
-const cube = new THREE.Mesh(
-  geometry,
-  material
-);
+</script>
 
-scene.add(cube);
-
-
-/* نور */
-
-const light = new THREE.PointLight(
-  0xffffff,
-  100
-);
-
-light.position.set(3, 3, 5);
-
-scene.add(light);
-
-
-/* نور محیط */
-
-scene.add(
-  new THREE.AmbientLight(
-    0xffffff,
-    1
-  )
-);
-
-
-/* انیمیشن */
-
-function animate() {
-
-  requestAnimationFrame(animate);
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.015;
-
-  renderer.render(
-    scene,
-    camera
-  );
-}
-
-animate();
-
-
-/* اندازه صفحه */
-
-window.addEventListener(
-  "resize",
-  () => {
-
-    camera.aspect =
-      window.innerWidth /
-      window.innerHeight;
-
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(
-      window.innerWidth,
-      window.innerHeight
-    );
-
-  }
-);
-    </script>
 </body>
-                    </html>
+    </html>
