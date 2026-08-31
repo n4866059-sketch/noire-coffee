@@ -19,10 +19,78 @@
             font-size: 80px;
             color: #c9aa6c;
         }
+        .navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    box-sizing: border-box;
+    z-index: 100;
+    background: rgba(13, 11, 9, 0.75);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(201, 170, 108, 0.2);
+}
+
+.logo {
+    color: #c9aa6c;
+    font-family: Georgia, serif;
+    font-size: 28px;
+    letter-spacing: 5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #c9aa6c;
+}
+
+.menu-button {
+    border: 1px solid #c9aa6c;
+    color: #c9aa6c;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+@media (max-width: 700px) {
+    .nav-links {
+        display: none;
+    }
+}
     </style>
 </head>
 
 <body>
+    <header class="navbar">
+
+    <a href="#" class="logo">NOIRÉ</a>
+
+    <nav class="nav-links">
+        <a href="#">خانه</a>
+        <a href="#menu">منو</a>
+        <a href="#about">درباره ما</a>
+        <a href="#gallery">گالری</a>
+    </nav>
+
+    <a href="#menu" class="menu-button">
+        مشاهده منو
+    </a>
+
+    </header>
 
     <h1>NOIRÉ</h1>
 
