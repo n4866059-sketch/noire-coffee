@@ -1,98 +1,1624 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOIRÉ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            background: #0d0b09;
-            color: #f5efe5;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
+<title>NOIR CAFÉ | کافه سه‌بعدی</title>
 
-        h1 {
-            margin-top: 200px;
-            font-size: 80px;
-            color: #c9aa6c;
-        }
-        .navbar {
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0807;
+    color: #f5eee6;
+    font-family: "Vazirmatn", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
     position: fixed;
     top: 0;
     right: 0;
     width: 100%;
     height: 75px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 7%;
-    box-sizing: border-box;
-    z-index: 100;
-    background: rgba(13, 11, 9, 0.75);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(201, 170, 108, 0.2);
+
+    padding: 0 6%;
+
+    z-index: 1000;
+
+    background: rgba(10, 7, 6, 0.55);
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .logo {
-    color: #c9aa6c;
-    font-family: Georgia, serif;
-    font-size: 28px;
+    font-size: 25px;
+    font-weight: 800;
     letter-spacing: 5px;
 }
 
 .nav-links {
     display: flex;
-    gap: 28px;
+    gap: 30px;
 }
 
 .nav-links a {
-    color: #eee;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s;
+    font-size: 13px;
+    color: #cfc5bb;
+    transition: .3s;
 }
 
 .nav-links a:hover {
-    color: #c9aa6c;
+    color: #d7a45b;
 }
 
-.menu-button {
-    border: 1px solid #c9aa6c;
-    color: #c9aa6c;
+.nav-button {
+    border: 1px solid #d7a45b;
     padding: 10px 20px;
-    text-decoration: none;
+    color: #d7a45b;
+    transition: .3s;
 }
 
-@media (max-width: 700px) {
+.nav-button:hover {
+    background: #d7a45b;
+    color: #120c08;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.15),
+            rgba(0,0,0,.75)
+        ),
+        url("1.jpeg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(197, 137, 69, .12);
+
+    filter: blur(100px);
+
+    animation: glow 5s infinite alternate;
+}
+
+@keyframes glow {
+
+    from {
+        transform: scale(.8);
+        opacity: .4;
+    }
+
+    to {
+        transform: scale(1.2);
+        opacity: .8;
+    }
+
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    max-width: 850px;
+    padding: 30px;
+
+    animation: heroIn 1.4s ease;
+}
+
+@keyframes heroIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(45px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.small-title {
+    color: #d7a45b;
+
+    font-size: 11px;
+
+    letter-spacing: 5px;
+}
+
+.hero h1 {
+    font-size: clamp(55px, 9vw, 115px);
+
+    line-height: 1.05;
+
+    margin: 25px 0;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 10px 40px rgba(0,0,0,.8);
+}
+
+.hero h1 span {
+    color: #d7a45b;
+}
+
+.hero p {
+    max-width: 600px;
+
+    margin: auto;
+
+    color: #d4cbc2;
+
+    line-height: 2;
+
+    font-size: 15px;
+}
+
+.hero-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin-top: 35px;
+}
+
+.button {
+    padding: 14px 32px;
+
+    transition: .35s;
+}
+
+.primary {
+    background: #d7a45b;
+    color: #160e08;
+}
+
+.primary:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+
+.secondary {
+    border: 1px solid rgba(255,255,255,.5);
+}
+
+.secondary:hover {
+    background: white;
+    color: #111;
+}
+
+.scroll-text {
+    position: absolute;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: #aaa;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================
+   INTRO
+========================= */
+
+.intro {
+    padding: 130px 8%;
+
+    text-align: center;
+
+    position: relative;
+}
+
+.intro-decoration {
+    position: absolute;
+
+    width: 180px;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    opacity: .3;
+
+    border-radius: 50%;
+
+    filter: blur(1px);
+
+    right: 5%;
+    top: 90px;
+
+    transform: rotate(-8deg);
+}
+
+.section-label {
+    color: #d7a45b;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+}
+
+.intro h2 {
+    font-size: clamp(40px, 6vw, 70px);
+
+    margin: 25px 0;
+
+    line-height: 1.3;
+}
+
+.intro p {
+    max-width: 700px;
+
+    margin: auto;
+
+    color: #99918a;
+
+    line-height: 2.2;
+}
+
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+    padding: 120px 6%;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #21150e,
+            #0d0907 55%
+        );
+}
+
+.menu-header {
+    text-align: center;
+
+    margin-bottom: 65px;
+}
+
+.menu-header h2 {
+    font-size: clamp(40px, 6vw, 70px);
+
+    margin-top: 15px;
+}
+
+.menu-header p {
+    color: #8f8881;
+
+    margin-top: 15px;
+}
+
+
+/* 3D GRID */
+
+.menu-grid {
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 30px;
+
+    perspective: 1400px;
+}
+
+.card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #211711,
+            #100c0a
+        );
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    overflow: hidden;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+}
+
+.card:hover {
+    transform:
+        translateY(-15px)
+        rotateX(5deg)
+        rotateY(-5deg);
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.7);
+}
+
+.card-image {
+    height: 300px;
+
+    overflow: hidden;
+
+    transform: translateZ(25px);
+}
+
+.card-image img {
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: .7s;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 25px;
+
+    transform: translateZ(35px);
+}
+
+.card-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.card-title h3 {
+    font-size: 19px;
+
+    font-weight: 600;
+}
+
+.price {
+    color: #d7a45b;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+.card-content p {
+    color: #89827b;
+
+    font-size: 12px;
+
+    line-height: 2;
+
+    margin-top: 12px;
+}
+
+
+/* =========================
+   FEATURE
+========================= */
+
+.feature {
+    min-height: 600px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    background: #120d0a;
+}
+
+.feature-image {
+    min-height: 600px;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.1),
+            rgba(0,0,0,.5)
+        ),
+        url("2.jpeg");
+
+    background-size: cover;
+
+    background-position: center;
+}
+
+.feature-content {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 80px 10%;
+}
+
+.feature-content h2 {
+    font-size: clamp(45px, 6vw, 75px);
+
+    line-height: 1.2;
+
+    margin: 25px 0;
+}
+
+.feature-content p {
+    color: #9b938b;
+
+    line-height: 2.2;
+
+    max-width: 500px;
+}
+
+
+/* =========================
+   PARALLAX DECOR
+========================= */
+
+.decor-section {
+    position: relative;
+
+    min-height: 500px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: #0b0807;
+}
+
+.decor-section img {
+    position: absolute;
+
+    width: 250px;
+
+    height: 250px;
+
+    object-fit: cover;
+
+    opacity: .35;
+
+    transition: transform 1s ease;
+}
+
+.decor-left {
+    right: 8%;
+
+    transform: rotate(-10deg);
+}
+
+.decor-right {
+    left: 8%;
+
+    transform: rotate(10deg);
+}
+
+.decor-center {
+    width: 500px !important;
+
+    height: 500px !important;
+
+    opacity: .12 !important;
+
+    border-radius: 50%;
+}
+
+.decor-text {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.decor-text h2 {
+    font-size: clamp(40px, 6vw, 75px);
+}
+
+.decor-text p {
+    color: #999;
+
+    margin-top: 15px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    padding: 120px 8%;
+
+    text-align: center;
+
+    background: #15100d;
+}
+
+.about h2 {
+    font-size: clamp(40px, 6vw, 70px);
+
+    margin: 20px 0 30px;
+}
+
+.about p {
+    max-width: 700px;
+
+    margin: auto;
+
+    color: #99918a;
+
+    line-height: 2.2;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    padding: 100px 6%;
+
+    background: #0d0907;
+}
+
+.contact-grid {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    text-align: center;
+}
+
+.contact-box {
+    padding: 30px;
+
+    border-left: 1px solid rgba(255,255,255,.08);
+}
+
+.contact-box:last-child {
+    border-left: 0;
+}
+
+.contact-box span {
+    color: #d7a45b;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+}
+
+.contact-box h3 {
+    margin: 15px 0;
+}
+
+.contact-box p {
+    color: #888;
+
+    line-height: 2;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 60px 6% 25px;
+
+    background: #070504;
+}
+
+.footer-top {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 40px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
+.footer-logo {
+    font-size: 35px;
+
+    font-weight: 800;
+
+    letter-spacing: 6px;
+}
+
+.footer-text {
+    color: #777;
+
+    font-size: 12px;
+}
+
+.footer-bottom {
+    padding-top: 25px;
+
+    text-align: center;
+
+    color: #555;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+.reveal {
+    opacity: 0;
+
+    transform:
+        translateY(70px)
+        scale(.96);
+
+    transition:
+        opacity .9s ease,
+        transform .9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 900px) {
+
     .nav-links {
         display: none;
     }
+
+    .menu-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .feature {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-image {
+        min-height: 450px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-box {
+        border-left: 0;
+
+        border-bottom:
+            1px solid rgba(255,255,255,.08);
+    }
+
 }
-    </style>
+
+@media(max-width: 600px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 50px;
+    }
+
+    .hero p {
+        font-size: 13px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        width: 210px;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .intro {
+        padding: 90px 25px;
+    }
+
+    .menu {
+        padding: 90px 20px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-image {
+        height: 330px;
+    }
+
+    .feature-content {
+        padding: 70px 25px;
+    }
+
+    .decor-left {
+        right: -80px;
+    }
+
+    .decor-right {
+        left: -80px;
+    }
+
+    .decor-center {
+        width: 350px !important;
+        height: 350px !important;
+    }
+
+    .footer-top {
+        flex-direction: column;
+
+        gap: 20px;
+
+        text-align: center;
+    }
+
+}
+
+</style>
+
 </head>
 
-<body>
-    <header class="navbar">
 
-    <a href="#" class="logo">NOIRÉ</a>
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a href="#home" class="logo">
+        NOIR
+    </a>
 
     <nav class="nav-links">
-        <a href="#">خانه</a>
+
+        <a href="#home">خانه</a>
+
         <a href="#menu">منو</a>
+
         <a href="#about">درباره ما</a>
-        <a href="#gallery">گالری</a>
+
+        <a href="#contact">تماس</a>
+
     </nav>
 
-    <a href="#menu" class="menu-button">
+    <a href="#menu" class="nav-button">
         مشاهده منو
     </a>
 
-    </header>
+</header>
 
-    <h1>NOIRÉ</h1>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <span class="small-title">
+            PREMIUM 3D CAFÉ
+        </span>
+
+        <h1>
+            یک فنجان،
+            <br>
+            <span>یک تجربه.</span>
+        </h1>
+
+        <p>
+            جایی برای قهوه‌های خاص،
+            دسرهای جذاب و لحظه‌هایی
+            که دوست دارید دوباره تجربه‌شان کنید.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#menu" class="button primary">
+                مشاهده منو
+            </a>
+
+            <a href="#contact" class="button secondary">
+                اطلاعات کافه
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="scroll-text">
+        SCROLL ↓
+    </div>
+
+</section>
+
+
+
+<!-- INTRO -->
+
+<section class="intro reveal">
+
+    <img
+        src="3.jpeg"
+        class="intro-decoration"
+        alt="Coffee decoration"
+    >
+
+    <span class="section-label">
+        WELCOME TO NOIR
+    </span>
+
+    <h2>
+        قهوه را فقط ننوشید؛
+        <br>
+        تجربه‌اش کنید.
+    </h2>
+
+    <p>
+        در NOIR هر نوشیدنی با دقت آماده می‌شود
+        تا ترکیبی از طعم، ظاهر و حس متفاوت
+        را تجربه کنید.
+    </p>
+
+</section>
+
+
+
+<!-- MENU -->
+
+<section class="menu" id="menu">
+
+    <div class="menu-header reveal">
+
+        <span class="section-label">
+            OUR MENU
+        </span>
+
+        <h2>
+            منوی کافه
+        </h2>
+
+        <p>
+            انتخابی از نوشیدنی‌ها و دسرهای محبوب ما
+        </p>
+
+    </div>
+
+
+    <div class="menu-grid">
+
+
+        <!-- MOCHA -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="5.jpeg"
+                    alt="موکا"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        موکا
+                    </h3>
+
+                    <span class="price">
+                        ۱۸۰,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    ترکیبی جذاب از قهوه،
+                    شیر و شکلات.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- AMERICANO -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="6.jpeg"
+                    alt="آمریکانو"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        آمریکانو
+                    </h3>
+
+                    <span class="price">
+                        ۱۴۰,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    اسپرسوی غلیظ با آب داغ
+                    برای یک طعم کلاسیک.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CHOCOLATE CAKE -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="7.jpeg"
+                    alt="کیک شکلاتی"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        کیک شکلاتی
+                    </h3>
+
+                    <span class="price">
+                        ۱۹۵,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    کیک شکلاتی نرم با طعم
+                    عمیق و شکلاتی.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- LATTE -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="8.jpeg"
+                    alt="لاته"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        لاته
+                    </h3>
+
+                    <span class="price">
+                        ۱۶۰,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    اسپرسو، شیر بخار داده شده
+                    و فوم لطیف.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- CHOCOLATE SHAKE -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="9.jpeg"
+                    alt="شیک شکلات"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        شیک شکلات
+                    </h3>
+
+                    <span class="price">
+                        ۲۲۰,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    شیک شکلاتی خنک،
+                    خامه‌ای و غلیظ.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- STRAWBERRY CAKE -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="10.jpeg"
+                    alt="کیک توت فرنگی"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        کیک توت‌فرنگی
+                    </h3>
+
+                    <span class="price">
+                        ۲۰۵,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    کیک لطیف با خامه و
+                    توت‌فرنگی تازه.
+                </p>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- BANANA CHOCOLATE SHAKE -->
+
+        <article class="card reveal">
+
+            <div class="card-image">
+
+                <img
+                    src="11.jpeg"
+                    alt="شیک موز شکلات"
+                >
+
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-title">
+
+                    <h3>
+                        شیک موز شکلات
+                    </h3>
+
+                    <span class="price">
+                        ۲۳۰,۰۰۰ تومان
+                    </span>
+
+                </div>
+
+                <p>
+                    ترکیب موز، شکلات و شیر
+                    با بافتی خامه‌ای.
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- FEATURE -->
+
+<section class="feature reveal">
+
+    <div class="feature-image"></div>
+
+    <div class="feature-content">
+
+        <span class="section-label">
+            SPECIAL MOMENT
+        </span>
+
+        <h2>
+            لحظه‌ای
+            <br>
+            برای خودت.
+        </h2>
+
+        <p>
+            یک نوشیدنی مورد علاقه‌ات انتخاب کن،
+            موسیقی را بشنو و چند دقیقه از
+            شلوغی روز فاصله بگیر.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- DECOR -->
+
+<section class="decor-section">
+
+    <img
+        src="2.jpeg"
+        class="decor-left"
+        alt=""
+    >
+
+    <img
+        src="4.jpeg"
+        class="decor-right"
+        alt=""
+    >
+
+    <img
+        src="3.jpeg"
+        class="decor-center"
+        alt=""
+    >
+
+    <div class="decor-text reveal">
+
+        <span class="section-label">
+            MADE WITH PASSION
+        </span>
+
+        <h2>
+            هر فنجان،
+            <br>
+            با عشق.
+        </h2>
+
+        <p>
+            کیفیت، طعم و جزئیات برای ما مهم‌اند.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section class="about reveal" id="about">
+
+    <span class="section-label">
+        ABOUT NOIR
+    </span>
+
+    <h2>
+        کافه‌ای برای لحظه‌های خاص
+    </h2>
+
+    <p>
+        NOIR با هدف ساختن یک فضای متفاوت
+        برای دوستداران قهوه و دسر شکل گرفته است.
+        اینجا قرار نیست فقط یک نوشیدنی سفارش بدهید؛
+        قرار است یک تجربه داشته باشید.
+    </p>
+
+</section>
+
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+    <div class="contact-grid">
+
+        <div class="contact-box reveal">
+
+            <span>
+                ADDRESS
+            </span>
+
+            <h3>
+                آدرس کافه
+            </h3>
+
+            <p>
+                تهران، خیابان ولیعصر
+            </p>
+
+        </div>
+
+
+        <div class="contact-box reveal">
+
+            <span>
+                OPENING HOURS
+            </span>
+
+            <h3>
+                ساعت کاری
+            </h3>
+
+            <p>
+                شنبه تا پنجشنبه
+                <br>
+                ۹:۰۰ تا ۲۳:۳۰
+            </p>
+
+        </div>
+
+
+        <div class="contact-box reveal">
+
+            <span>
+                CONTACT
+            </span>
+
+            <h3>
+                تماس
+            </h3>
+
+            <p>
+                ۰۲۱-۱۲۳۴۵۶۷۸
+                <br>
+                info@noircafe.ir
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-top">
+
+        <div>
+
+            <div class="footer-logo">
+                NOIR
+            </div>
+
+            <div class="footer-text">
+                Premium 3D Café
+            </div>
+
+        </div>
+
+        <div class="footer-text">
+            قهوه، دسر و لحظه‌های خوب.
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 NOIR CAFÉ
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const reveals =
+document.querySelectorAll(".reveal");
+
+
+const observer =
+new IntersectionObserver(
+
+    (entries) => {
+
+        entries.forEach(
+
+            (entry) => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("active");
+
+                }
+
+            }
+
+        );
+
+    },
+
+    {
+        threshold: 0.15
+    }
+
+);
+
+
+reveals.forEach(
+
+    (element) => {
+
+        observer.observe(element);
+
+    }
+
+);
+
+
+
+/* =========================
+   3D CARD MOUSE EFFECT
+========================= */
+
+const cards =
+document.querySelectorAll(".card");
+
+
+cards.forEach(
+
+    (card) => {
+
+        card.addEventListener(
+            "mousemove",
+            (event) => {
+
+                const rect =
+                    card.getBoundingClientRect();
+
+                const x =
+                    event.clientX - rect.left;
+
+                const y =
+                    event.clientY - rect.top;
+
+                const centerX =
+                    rect.width / 2;
+
+                const centerY =
+                    rect.height / 2;
+
+                const rotateX =
+                    ((y - centerY) / centerY) * -5;
+
+                const rotateY =
+                    ((x - centerX) / centerX) * 5;
+
+                card.style.transform =
+                    "translateY(-15px) rotateX(" +
+                    rotateX +
+                    "deg) rotateY(" +
+                    rotateY +
+                    "deg)";
+
+            }
+        );
+
+
+        card.addEventListener(
+            "mouseleave",
+            () => {
+
+                card.style.transform =
+                    "translateY(0) rotateX(0) rotateY(0)";
+
+            }
+        );
+
+    }
+
+);
+
+
+
+/* =========================
+   PARALLAX
+========================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const scroll =
+            window.scrollY;
+
+        const hero =
+            document.querySelector(".hero");
+
+        if (hero) {
+
+            hero.style.backgroundPosition =
+                "center " +
+                (scroll * 0.35) +
+                "px";
+
+        }
+
+    }
+);
+
+</script>
+
 
 </body>
-</html>
+
+    </html>
