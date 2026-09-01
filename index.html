@@ -2,9 +2,9 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NOIR — Immersive Coffee</title>
+<title>NOIR — Coffee Experience</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,529 +12,729 @@
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html{
-scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-font-family:Vazirmatn,sans-serif;
-background:#050302;
-color:#eee4da;
-overflow-x:hidden;
+    background:#050302;
+    color:#f4e8dc;
+    font-family:Vazirmatn,sans-serif;
+    overflow-x:hidden;
 }
 
-body:before{
-content:"";
-position:fixed;
-inset:0;
-pointer-events:none;
-z-index:100;
-background:radial-gradient(circle,transparent 35%,rgba(0,0,0,.55) 100%);
+/* ---------- BACKGROUND ---------- */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    background:
+        radial-gradient(circle at 50% 20%,
+        transparent 20%,
+        rgba(0,0,0,.25) 60%,
+        rgba(0,0,0,.8) 100%);
 }
 
-#scene{
-position:fixed;
-inset:0;
-z-index:1;
-pointer-events:none;
-}
+/* ---------- NAV ---------- */
 
-#scene canvas{
-width:100%;
-height:100%;
-display:block;
-}
-
-nav{
-position:fixed;
-top:0;
-right:0;
-left:0;
-height:82px;
-padding:0 7%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-z-index:50;
-background:linear-gradient(#050302,transparent);
+.nav{
+    position:fixed;
+    top:0;
+    right:0;
+    width:100%;
+    height:80px;
+    padding:0 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:50;
+    background:linear-gradient(
+        rgba(5,3,2,.9),
+        transparent
+    );
 }
 
 .logo{
-font-size:25px;
-font-weight:800;
-letter-spacing:10px;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:9px;
 }
 
-nav a{
-color:#b9aaa0;
-text-decoration:none;
-font-size:12px;
-margin-right:30px;
-transition:.3s;
+.nav a{
+    color:#a99b91;
+    text-decoration:none;
+    margin-right:30px;
+    font-size:12px;
+    transition:.3s;
 }
 
-nav a:hover{
-color:#d9a45f;
+.nav a:hover{
+    color:#dca76b;
 }
+
+/* ---------- HERO ---------- */
 
 .hero{
-height:100vh;
-position:relative;
-z-index:5;
-display:flex;
-align-items:center;
-padding:0 8%;
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:120px 8%;
+    overflow:hidden;
+}
+
+.heroImage{
+    position:absolute;
+    inset:0;
+    z-index:-3;
+}
+
+.heroImage img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:.42;
+    filter:brightness(.45) contrast(1.15);
+    transform:scale(1.04);
+}
+
+.heroOverlay{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+        linear-gradient(
+            90deg,
+            #050302 0%,
+            rgba(5,3,2,.72) 45%,
+            rgba(5,3,2,.2) 100%
+        );
 }
 
 .heroContent{
-max-width:620px;
+    max-width:700px;
+    position:relative;
+    z-index:5;
 }
 
-.tag{
-font-size:10px;
-letter-spacing:6px;
-color:#d9a45f;
-margin-bottom:24px;
+.eyebrow{
+    color:#dca76b;
+    font-size:10px;
+    letter-spacing:6px;
+    margin-bottom:25px;
 }
 
 .hero h1{
-font-size:clamp(70px,12vw,160px);
-line-height:.78;
-letter-spacing:-8px;
-text-shadow:0 30px 80px #000;
+    font-size:clamp(75px,13vw,180px);
+    line-height:.78;
+    letter-spacing:-8px;
 }
 
-.gold{
-color:#d9a45f;
+.hero h1 span{
+    color:#dca76b;
 }
 
-.hero p{
-max-width:470px;
-margin-top:38px;
-color:#968981;
-line-height:2.2;
-font-size:14px;
+.heroText{
+    margin-top:38px;
+    max-width:520px;
+    color:#a99b91;
+    line-height:2.2;
+    font-size:14px;
 }
 
-.button{
-display:inline-block;
-margin-top:30px;
-padding:15px 28px;
-border:1px solid #8e6439;
-color:#eee;
-text-decoration:none;
-font-size:12px;
-transition:.4s;
-pointer-events:auto;
+.heroButton{
+    display:inline-block;
+    margin-top:32px;
+    padding:15px 32px;
+    border:1px solid #8f6339;
+    color:#fff;
+    text-decoration:none;
+    font-size:12px;
+    transition:.4s;
 }
 
-.button:hover{
-background:#d9a45f;
-color:#160a04;
-transform:translateY(-5px);
+.heroButton:hover{
+    background:#dca76b;
+    color:#160b05;
+    transform:translateY(-5px);
 }
 
-.scroll{
-position:absolute;
-bottom:30px;
-left:50%;
-transform:translateX(-50%);
-font-size:9px;
-letter-spacing:5px;
-color:#655a53;
+.scrollHint{
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    color:#71655e;
+    font-size:9px;
+    letter-spacing:5px;
 }
 
-.section{
-position:relative;
-z-index:10;
-min-height:100vh;
-padding:150px 8%;
-display:flex;
-align-items:center;
-background:linear-gradient(transparent,#070403 30%,#070403 70%,transparent);
+/* ---------- DECOR ---------- */
+
+.decor{
+    position:absolute;
+    z-index:1;
+    pointer-events:none;
+    object-fit:cover;
+    opacity:.65;
+    filter:brightness(.65) contrast(1.1);
+    box-shadow:0 30px 80px rgba(0,0,0,.7);
 }
 
-.sectionText{
-max-width:720px;
+.decorOne{
+    width:220px;
+    height:300px;
+    left:5%;
+    top:15%;
+    transform:rotate(-8deg);
 }
 
-.section h2{
-font-size:clamp(50px,8vw,110px);
-line-height:.95;
-margin-bottom:35px;
+.decorTwo{
+    width:250px;
+    height:330px;
+    right:5%;
+    bottom:8%;
+    transform:rotate(7deg);
 }
 
-.section p{
-color:#93867d;
-line-height:2.4;
-max-width:620px;
+/* ---------- INTRO ---------- */
+
+.intro{
+    min-height:100vh;
+    padding:160px 8%;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 70% 50%,
+            #321a0d,
+            #080403 55%
+        );
 }
 
-.gallery{
-position:relative;
-z-index:10;
-min-height:100vh;
-padding:140px 7%;
-background:#060302;
+.introContent{
+    max-width:700px;
 }
 
-.galleryTitle{
-text-align:center;
-margin-bottom:70px;
+.intro h2{
+    font-size:clamp(55px,8vw,110px);
+    line-height:.95;
+    margin:25px 0 35px;
 }
 
-.galleryTitle h2{
-font-size:clamp(55px,8vw,110px);
+.intro p{
+    color:#988b82;
+    line-height:2.4;
 }
 
-.galleryGrid{
-max-width:1200px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:25px;
+.coffeeScene{
+    position:absolute;
+    left:8%;
+    width:390px;
+    height:390px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            #5d2c12,
+            #160904 62%,
+            transparent 63%
+        );
+    box-shadow:
+        0 0 100px rgba(155,75,22,.3);
+    transform:rotateX(65deg);
 }
 
-.galleryCard{
-height:430px;
-overflow:hidden;
-position:relative;
-border:1px solid #251811;
-transform-style:preserve-3d;
-transition:.5s;
+.coffeeScene::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    left:85px;
+    top:80px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 40% 35%,
+            #a95b29,
+            #351305 45%,
+            #0e0301 70%
+        );
+    box-shadow:
+        inset 0 0 25px #000,
+        0 30px 50px rgba(0,0,0,.8);
 }
 
-.galleryCard:hover{
-transform:perspective(900px) rotateX(4deg) rotateY(-5deg) translateY(-10px);
-border-color:#8e6439;
+.steam{
+    position:absolute;
+    left:190px;
+    top:-70px;
+    width:12px;
+    height:150px;
+    border-radius:50%;
+    border-left:2px solid rgba(255,255,255,.15);
+    filter:blur(2px);
+    animation:steam 3s infinite ease-in-out;
 }
 
-.galleryCard img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:1s;
+.steam:nth-child(2){
+    left:235px;
+    animation-delay:1s;
 }
 
-.galleryCard:hover img{
-transform:scale(1.08);
+.steam:nth-child(3){
+    left:150px;
+    animation-delay:1.8s;
 }
 
-.galleryCard div{
-position:absolute;
-bottom:0;
-right:0;
-left:0;
-padding:25px;
-background:linear-gradient(transparent,rgba(0,0,0,.95));
+@keyframes steam{
+    0%,100%{
+        transform:translateY(25px) rotate(4deg);
+        opacity:0;
+    }
+    50%{
+        transform:translateY(-20px) rotate(-5deg);
+        opacity:1;
+    }
 }
 
-.galleryCard h3{
-font-size:23px;
+/* ---------- SIGNATURE ---------- */
+
+.signature{
+    min-height:90vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#070403;
 }
 
-.special{
-min-height:100vh;
-position:relative;
-z-index:10;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-background:radial-gradient(circle,#351b0d,#050302 68%);
+.signatureImage{
+    position:absolute;
+    width:min(500px,75vw);
+    height:620px;
+    object-fit:cover;
+    border-radius:20px;
+    opacity:.5;
+    filter:brightness(.65);
+    transform:
+        perspective(1200px)
+        rotateY(-18deg)
+        rotateX(5deg);
+    box-shadow:
+        0 50px 100px rgba(0,0,0,.8);
+    transition:1s;
 }
 
-.special img{
-position:absolute;
-width:min(430px,70vw);
-height:540px;
-object-fit:cover;
-opacity:.42;
-filter:brightness(.55);
-border-radius:18px;
-transform:translateX(220px) rotateY(-20deg);
-transition:1s;
+.signature:hover .signatureImage{
+    transform:
+        perspective(1200px)
+        rotateY(0)
+        rotateX(0)
+        scale(1.03);
 }
 
-.special:hover img{
-transform:translateX(150px) rotateY(0) scale(1.03);
+.signatureContent{
+    position:relative;
+    z-index:4;
+    text-align:center;
+    text-shadow:0 20px 50px #000;
 }
 
-.specialText{
-position:relative;
-z-index:4;
-text-align:center;
+.signatureContent h2{
+    font-size:clamp(55px,10vw,140px);
+    line-height:.85;
 }
 
-.specialText h2{
-font-size:clamp(55px,9vw,125px);
-line-height:.85;
+.signatureContent span{
+    color:#dca76b;
 }
+
+/* ---------- MENU ---------- */
 
 .menu{
-position:relative;
-z-index:10;
-padding:150px 6%;
-background:#050302;
+    padding:150px 6%;
+    background:
+        linear-gradient(
+            #070403,
+            #030201
+        );
 }
 
 .menuHeader{
-text-align:center;
-margin-bottom:80px;
+    text-align:center;
+    margin-bottom:80px;
 }
 
 .menuHeader h2{
-font-size:clamp(55px,9vw,120px);
-line-height:1;
+    font-size:clamp(60px,9vw,125px);
+    line-height:1;
 }
 
 .menuHeader p{
-color:#7f736b;
-margin-top:20px;
+    margin-top:20px;
+    color:#776b63;
 }
 
-.cards{
-max-width:1250px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:24px;
+.menuGrid{
+    max-width:1250px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
 }
 
-.card{
-height:490px;
-position:relative;
-overflow:hidden;
-background:#0d0704;
-border:1px solid #21150f;
-transform-style:preserve-3d;
-transition:.5s;
+.menuCard{
+    position:relative;
+    height:480px;
+    overflow:hidden;
+    background:#100804;
+    border:1px solid #25170f;
+    transform-style:preserve-3d;
+    transition:.45s;
 }
 
-.card:hover{
-transform:perspective(1000px) rotateX(3deg) rotateY(-4deg) translateY(-12px);
-border-color:#9c6d3e;
+.menuCard:hover{
+    transform:
+        perspective(1000px)
+        rotateX(4deg)
+        rotateY(-5deg)
+        translateY(-14px);
+    border-color:#9b6b3e;
+    box-shadow:
+        0 35px 70px rgba(0,0,0,.7);
 }
 
-.card img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:1s;
+.menuCard img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
 }
 
-.card:hover img{
-transform:scale(1.1);
+.menuCard:hover img{
+    transform:scale(1.09);
 }
 
-.card:after{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(transparent 20%,rgba(0,0,0,.95));
+.menuCard::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            transparent 15%,
+            rgba(0,0,0,.9) 90%
+        );
 }
 
-.cardInfo{
-position:absolute;
-bottom:0;
-right:0;
-left:0;
-padding:28px;
-z-index:2;
+.menuInfo{
+    position:absolute;
+    bottom:0;
+    right:0;
+    left:0;
+    padding:28px;
+    z-index:3;
 }
 
-.number{
-font-size:9px;
-letter-spacing:4px;
-color:#d9a45f;
+.menuNumber{
+    color:#dca76b;
+    font-size:9px;
+    letter-spacing:4px;
 }
 
-.card h3{
-font-size:25px;
-margin:9px 0;
+.menuInfo h3{
+    margin:10px 0;
+    font-size:25px;
 }
 
-.card p{
-font-size:12px;
-line-height:2;
-color:#a19389;
+.menuInfo p{
+    color:#a0938a;
+    font-size:12px;
+    line-height:2;
 }
 
 .price{
-display:block;
-margin-top:13px;
-color:#d9a45f;
-font-size:14px;
+    display:block;
+    margin-top:13px;
+    color:#dca76b;
 }
+
+/* ---------- SPECIAL DECOR ---------- */
+
+.decorSection{
+    min-height:75vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle,
+            #351b0c,
+            #050302 65%
+        );
+}
+
+.decorSection img{
+    position:absolute;
+    width:340px;
+    height:450px;
+    object-fit:cover;
+    opacity:.35;
+    transition:1s;
+}
+
+.decorLeft{
+    left:8%;
+    transform:
+        perspective(1000px)
+        rotateY(25deg)
+        rotateZ(-5deg);
+}
+
+.decorRight{
+    right:8%;
+    transform:
+        perspective(1000px)
+        rotateY(-25deg)
+        rotateZ(5deg);
+}
+
+.decorSection:hover .decorLeft{
+    transform:
+        perspective(1000px)
+        rotateY(8deg)
+        rotateZ(-3deg)
+        scale(1.04);
+}
+
+.decorSection:hover .decorRight{
+    transform:
+        perspective(1000px)
+        rotateY(-8deg)
+        rotateZ(3deg)
+        scale(1.04);
+}
+
+.decorText{
+    text-align:center;
+    position:relative;
+    z-index:5;
+}
+
+.decorText h2{
+    font-size:clamp(50px,8vw,105px);
+    line-height:.9;
+}
+
+.decorText span{
+    color:#dca76b;
+}
+
+/* ---------- ABOUT ---------- */
 
 .about{
-position:relative;
-z-index:10;
-min-height:90vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:120px 8%;
-background:radial-gradient(circle,#28160a,#050302 70%);
+    min-height:80vh;
+    padding:140px 8%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:#050302;
 }
 
-.aboutInner{
-max-width:850px;
+.aboutBox{
+    max-width:800px;
 }
 
-.about h2{
-font-size:clamp(50px,8vw,110px);
-line-height:.9;
-margin:25px 0 35px;
+.aboutBox h2{
+    font-size:clamp(55px,8vw,110px);
+    line-height:.9;
+    margin:25px 0 35px;
 }
 
-.about p{
-color:#93867d;
-line-height:2.4;
+.aboutBox p{
+    color:#91847c;
+    line-height:2.5;
 }
+
+/* ---------- CONTACT ---------- */
 
 .contact{
-position:relative;
-z-index:10;
-padding:140px 7%;
-background:#030201;
+    padding:130px 7%;
+    background:#020100;
 }
 
 .contactTitle{
-text-align:center;
-margin-bottom:70px;
+    text-align:center;
+    margin-bottom:70px;
 }
 
 .contactTitle h2{
-font-size:clamp(45px,7vw,90px);
+    font-size:clamp(50px,8vw,95px);
 }
 
 .contactGrid{
-max-width:1000px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(3,1fr);
-border-top:1px solid #211811;
-border-bottom:1px solid #211811;
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    border-top:1px solid #24160f;
+    border-bottom:1px solid #24160f;
 }
 
 .contactBox{
-padding:45px 20px;
-text-align:center;
-border-left:1px solid #211811;
+    text-align:center;
+    padding:45px 20px;
+    border-left:1px solid #24160f;
 }
 
 .contactBox:last-child{
-border-left:0;
+    border-left:0;
 }
 
 .contactBox span{
-font-size:9px;
-letter-spacing:4px;
-color:#d9a45f;
+    color:#dca76b;
+    font-size:9px;
+    letter-spacing:4px;
 }
 
 .contactBox h3{
-margin:15px 0;
+    margin:15px 0;
 }
 
 .contactBox p{
-font-size:12px;
-line-height:2;
-color:#756a63;
+    color:#71665e;
+    font-size:12px;
+    line-height:2;
 }
 
+/* ---------- FOOTER ---------- */
+
 footer{
-position:relative;
-z-index:10;
-text-align:center;
-padding:75px 20px 35px;
-background:#020100;
+    padding:80px 20px 35px;
+    text-align:center;
+    background:#010100;
 }
 
 .footerLogo{
-font-size:48px;
-font-weight:800;
-letter-spacing:13px;
+    font-size:50px;
+    font-weight:800;
+    letter-spacing:13px;
 }
 
 .footerText{
-margin-top:15px;
-font-size:9px;
-letter-spacing:4px;
-color:#514842;
+    color:#514942;
+    margin-top:15px;
+    font-size:9px;
+    letter-spacing:4px;
 }
+
+/* ---------- MOBILE ---------- */
 
 @media(max-width:900px){
 
-nav a{
-display:none;
-}
+    .nav a{
+        display:none;
+    }
 
-.hero{
-justify-content:center;
-text-align:center;
-}
+    .hero{
+        text-align:center;
+        justify-content:center;
+    }
 
-.hero p{
-margin-left:auto;
-margin-right:auto;
-}
+    .heroText{
+        margin-left:auto;
+        margin-right:auto;
+    }
 
-.galleryGrid,
-.cards{
-grid-template-columns:repeat(2,1fr);
-}
+    .decor{
+        opacity:.25;
+    }
 
-.special img{
-opacity:.25;
-transform:none;
-}
+    .coffeeScene{
+        opacity:.3;
+        left:50%;
+        transform:
+            translateX(-50%)
+            rotateX(65deg);
+    }
 
+    .menuGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .decorLeft{
+        left:-80px;
+    }
+
+    .decorRight{
+        right:-80px;
+    }
 }
 
 @media(max-width:600px){
 
-.hero h1{
-font-size:75px;
-}
+    .hero h1{
+        font-size:75px;
+    }
 
-.galleryGrid,
-.cards,
-.contactGrid{
-grid-template-columns:1fr;
-}
+    .menuGrid{
+        grid-template-columns:1fr;
+    }
 
-.contactBox{
-border-left:0;
-border-bottom:1px solid #211811;
-}
+    .menuCard{
+        height:450px;
+    }
 
-.contactBox:last-child{
-border-bottom:0;
-}
+    .decorOne,
+    .decorTwo{
+        width:150px;
+        height:220px;
+    }
 
-.special img{
-width:75vw;
-height:450px;
-}
+    .contactGrid{
+        grid-template-columns:1fr;
+    }
 
+    .contactBox{
+        border-left:0;
+        border-bottom:1px solid #24160f;
+    }
+
+    .contactBox:last-child{
+        border-bottom:0;
+    }
+
+    .signatureImage{
+        width:75vw;
+        height:500px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="scene"></div>
+<!-- NAV -->
 
-<nav>
-<div class="logo">NOIR</div>
+<nav class="nav">
+
+<div class="logo">
+NOIR
+</div>
 
 <div>
 <a href="#home">خانه</a>
@@ -543,61 +743,89 @@ height:450px;
 <a href="#about">درباره ما</a>
 <a href="#contact">تماس</a>
 </div>
+
 </nav>
 
 
+<!-- HERO -->
+
 <section class="hero" id="home">
+
+<div class="heroImage">
+<img src="1.jpeg" alt="NOIR Coffee">
+</div>
+
+<div class="heroOverlay"></div>
+
+<img class="decor decorOne"
+src="3.jpeg"
+alt="دکور NOIR">
+
+<img class="decor decorTwo"
+src="4.jpeg"
+alt="دکور NOIR">
+
 
 <div class="heroContent">
 
-<div class="tag">
+<div class="eyebrow">
 IMMERSIVE COFFEE EXPERIENCE
 </div>
 
 <h1>
 NOIR
 <br>
-<span class="gold">COFFEE</span>
+<span>COFFEE</span>
 </h1>
 
-<p>
-اینجا فقط یک کافه نیست؛
-یک تجربه‌ی تاریک، گرم و متفاوت
-از قهوه، نور و طراحی است.
+<p class="heroText">
+جایی که قهوه فقط یک نوشیدنی نیست.
+نور، عطر، صدا و طراحی در کنار هم
+یک تجربه‌ی متفاوت برای تو می‌سازند.
 </p>
 
-<a class="button" href="#menu">
-مشاهده منو ←
+<a class="heroButton" href="#menu">
+کشف منوی NOIR
 </a>
 
 </div>
 
-<div class="scroll">
-SCROLL TO EXPLORE ↓
+<div class="scrollHint">
+SCROLL TO DISCOVER
 </div>
 
 </section>
 
 
-<section class="section" id="experience">
+<!-- INTRO -->
 
-<div class="sectionText">
+<section class="intro" id="experience">
 
-<div class="tag">
-THE NOIR EXPERIENCE
+<div class="coffeeScene">
+
+<div class="steam"></div>
+<div class="steam"></div>
+<div class="steam"></div>
+
+</div>
+
+<div class="introContent">
+
+<div class="eyebrow">
+THE FIRST SIP
 </div>
 
 <h2>
-قهوه،
+اولین جرعه،
 <br>
-به شکل دیگری.
+شروع تجربه است.
 </h2>
 
 <p>
-در NOIR هر فنجان بخشی از یک تجربه است.
-نور گرم، فضای تاریک، عطر قهوه و طراحی
-سه‌بعدی کنار هم قرار گرفته‌اند تا یک
-کافه‌ی معمولی نباشد.
+در NOIR فضای کافه بخشی از طعم قهوه است.
+یک محیط تاریک و گرم، نورهای نرم،
+و جزئیاتی که باعث می‌شوند هر بار
+آمدنت حس متفاوتی داشته باشد.
 </p>
 
 </div>
@@ -605,18 +833,25 @@ THE NOIR EXPERIENCE
 </section>
 
 
-<section class="special">
+<!-- CAPPUCCINO -->
 
-<img src="2.jpeg" alt="کاپوچینو">
+<section class="signature">
 
-<div class="specialText">
+<img
+class="signatureImage"
+src="2.jpeg"
+alt="کاپوچینو">
 
-<div class="tag">
-SIGNATURE DRINK
+<div class="signatureContent">
+
+<div class="eyebrow">
+NOIR SIGNATURE
 </div>
 
 <h2>
 CAPPUCCINO
+<br>
+<span>02</span>
 </h2>
 
 </div>
@@ -624,48 +859,14 @@ CAPPUCCINO
 </section>
 
 
-<section class="gallery">
-
-<div class="galleryTitle">
-
-<div class="tag">
-NOIR ATMOSPHERE
-</div>
-
-<h2>
-فضای ما
-</h2>
-
-</div>
-
-<div class="galleryGrid">
-
-<div class="galleryCard">
-<img src="1.jpeg" alt="کاور کافه">
-<div><h3>NOIR</h3></div>
-</div>
-
-<div class="galleryCard">
-<img src="3.jpeg" alt="قهوه">
-<div><h3>Signature Coffee</h3></div>
-</div>
-
-<div class="galleryCard">
-<img src="4.jpeg" alt="دکور">
-<div><h3>Our Atmosphere</h3></div>
-</div>
-
-</div>
-
-</section>
-
+<!-- MENU -->
 
 <section class="menu" id="menu">
 
 <div class="menuHeader">
 
-<div class="tag">
-OUR MENU
+<div class="eyebrow">
+THE MENU
 </div>
 
 <h2>
@@ -673,149 +874,310 @@ OUR MENU
 </h2>
 
 <p>
-انتخاب کن؛ تجربه کن.
+انتخاب کن. مزه کن. دوباره برگرد.
 </p>
 
 </div>
 
 
-<div class="cards">
+<div class="menuGrid">
 
 
-<div class="card">
+<!-- 5 -->
+
+<article class="menuCard">
+
 <img src="5.jpeg" alt="موکا">
-<div class="cardInfo">
-<div class="number">01 / COFFEE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+01 / COFFEE
+</div>
+
 <h3>موکا</h3>
-<p>اسپرسو، شیر و شکلات با طعمی عمیق.</p>
-<span class="price">۱۸۰,۰۰۰ تومان</span>
-</div>
+
+<p>
+اسپرسو، شیر و شکلات
+با طعمی عمیق و گرم.
+</p>
+
+<span class="price">
+۱۸۰,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 6 -->
+
+<article class="menuCard">
+
 <img src="6.jpeg" alt="آمریکانو">
-<div class="cardInfo">
-<div class="number">02 / COFFEE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+02 / COFFEE
+</div>
+
 <h3>آمریکانو</h3>
-<p>قهوه‌ای کلاسیک، ساده و قدرتمند.</p>
-<span class="price">۱۴۰,۰۰۰ تومان</span>
-</div>
+
+<p>
+قهوه‌ای کلاسیک
+با طعمی قدرتمند.
+</p>
+
+<span class="price">
+۱۴۰,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 7 -->
+
+<article class="menuCard">
+
 <img src="7.jpeg" alt="کیک شکلاتی">
-<div class="cardInfo">
-<div class="number">03 / DESSERT</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+03 / DESSERT
+</div>
+
 <h3>کیک شکلاتی</h3>
-<p>کیک نرم با طعم عمیق شکلات.</p>
-<span class="price">۱۹۵,۰۰۰ تومان</span>
-</div>
+
+<p>
+نرم، غلیظ و شکلاتی.
+</p>
+
+<span class="price">
+۱۹۵,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 8 -->
+
+<article class="menuCard">
+
 <img src="8.jpeg" alt="لاته">
-<div class="cardInfo">
-<div class="number">04 / COFFEE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+04 / COFFEE
+</div>
+
 <h3>لاته</h3>
-<p>اسپرسو، شیر و فوم لطیف.</p>
-<span class="price">۱۶۰,۰۰۰ تومان</span>
-</div>
+
+<p>
+اسپرسو با شیر
+و فوم لطیف.
+</p>
+
+<span class="price">
+۱۶۰,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 9 -->
+
+<article class="menuCard">
+
 <img src="9.jpeg" alt="شیک شکلات">
-<div class="cardInfo">
-<div class="number">05 / SHAKE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+05 / SHAKE
+</div>
+
 <h3>شیک شکلات</h3>
-<p>خنک، خامه‌ای و شکلاتی.</p>
-<span class="price">۲۲۰,۰۰۰ تومان</span>
-</div>
+
+<p>
+شکلاتی، خنک
+و خامه‌ای.
+</p>
+
+<span class="price">
+۲۲۰,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 10 -->
+
+<article class="menuCard">
+
 <img src="10.jpeg" alt="کیک توت فرنگی">
-<div class="cardInfo">
-<div class="number">06 / DESSERT</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+06 / DESSERT
+</div>
+
 <h3>کیک توت‌فرنگی</h3>
-<p>کیک لطیف با خامه و توت‌فرنگی.</p>
-<span class="price">۲۰۵,۰۰۰ تومان</span>
-</div>
+
+<p>
+خامه‌ی لطیف
+و توت‌فرنگی تازه.
+</p>
+
+<span class="price">
+۲۰۵,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- 11 -->
+
+<article class="menuCard">
+
 <img src="11.jpeg" alt="شیک موز شکلات">
-<div class="cardInfo">
-<div class="number">07 / SHAKE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+07 / SHAKE
+</div>
+
 <h3>شیک موز شکلات</h3>
-<p>موز، شیر و شکلات.</p>
-<span class="price">۲۳۰,۰۰۰ تومان</span>
-</div>
-</div>
 
+<p>
+ترکیب موز،
+شیر و شکلات.
+</p>
 
-<div class="card">
-<img src="3.jpeg" alt="قهوه مخصوص">
-<div class="cardInfo">
-<div class="number">08 / SIGNATURE</div>
-<h3>NOIR Coffee</h3>
-<p>قهوه مخصوص NOIR.</p>
-<span class="price">۱۹۰,۰۰۰ تومان</span>
-</div>
+<span class="price">
+۲۳۰,۰۰۰ تومان
+</span>
+
 </div>
 
+</article>
 
-<div class="card">
+
+<!-- CAPPUCCINO -->
+
+<article class="menuCard">
+
 <img src="2.jpeg" alt="کاپوچینو">
-<div class="cardInfo">
-<div class="number">09 / SIGNATURE</div>
+
+<div class="menuInfo">
+
+<div class="menuNumber">
+08 / SIGNATURE
+</div>
+
 <h3>کاپوچینو</h3>
-<p>اسپرسو، شیر و فوم مخملی.</p>
-<span class="price">۱۷۰,۰۰۰ تومان</span>
+
+<p>
+اسپرسو، شیر
+و فوم مخملی.
+</p>
+
+<span class="price">
+۱۷۰,۰۰۰ تومان
+</span>
+
 </div>
-</div>
+
+</article>
 
 
 </div>
+
 </section>
 
 
-<section class="about" id="about">
+<!-- DECOR SECTION -->
 
-<div class="aboutInner">
+<section class="decorSection">
 
-<div class="tag">
-ABOUT NOIR
+<img
+class="decorLeft"
+src="3.jpeg"
+alt="دکور کافه">
+
+<img
+class="decorRight"
+src="4.jpeg"
+alt="دکور کافه">
+
+<div class="decorText">
+
+<div class="eyebrow">
+MORE THAN COFFEE
 </div>
 
 <h2>
-هر فنجان،
+اینجا
 <br>
-یک داستان.
+<span>NOIR</span>
+است.
+</h2>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+<div class="aboutBox">
+
+<div class="eyebrow">
+OUR PHILOSOPHY
+</div>
+
+<h2>
+قهوه،
+<br>
+با شخصیت.
 </h2>
 
 <p>
-NOIR جایی برای چند دقیقه دور شدن
-از شلوغی روزمره است؛ جایی که قهوه،
-طراحی و فضا یک تجربه‌ی واحد می‌سازند.
+ما NOIR را برای کسانی ساختیم که
+به جزئیات اهمیت می‌دهند؛
+از اولین نگاه به فنجان تا آخرین جرعه.
 </p>
 
 </div>
 
 </section>
 
+
+<!-- CONTACT -->
 
 <section class="contact" id="contact">
 
 <div class="contactTitle">
 
-<div class="tag">
-FIND US
+<div class="eyebrow">
+COME CLOSER
 </div>
 
 <h2>
@@ -827,21 +1189,48 @@ FIND US
 <div class="contactGrid">
 
 <div class="contactBox">
+
 <span>LOCATION</span>
-<h3>آدرس</h3>
-<p>تهران، خیابان ولیعصر</p>
+
+<h3>
+آدرس
+</h3>
+
+<p>
+قم، آدرس کافه
+</p>
+
 </div>
 
-<div class="contactBox">
-<span>HOURS</span>
-<h3>ساعت کاری</h3>
-<p>شنبه تا پنجشنبه<br>۹ صبح تا ۱۱:۳۰ شب</p>
-</div>
 
 <div class="contactBox">
+
+<span>OPEN HOURS</span>
+
+<h3>
+ساعت کاری
+</h3>
+
+<p>
+هر روز<br>
+۹ صبح تا ۱۱ شب
+</p>
+
+</div>
+
+
+<div class="contactBox">
+
 <span>CONTACT</span>
-<h3>تماس</h3>
-<p>۰۲۱-۱۲۳۴۵۶۷۸</p>
+
+<h3>
+تماس
+</h3>
+
+<p>
+شماره تماس کافه
+</p>
+
 </div>
 
 </div>
@@ -862,622 +1251,116 @@ IMMERSIVE COFFEE EXPERIENCE
 </footer>
 
 
-<script type="module">
+<script>
 
-import * as THREE from
-"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+/* ---------- 3D MOUSE TILT ---------- */
 
+const cards =
+document.querySelectorAll(".menuCard");
 
-const sceneContainer =
-document.getElementById("scene");
+cards.forEach(card=>{
 
+card.addEventListener("mousemove",e=>{
 
-const scene =
-new THREE.Scene();
+const rect =
+card.getBoundingClientRect();
 
+const x =
+e.clientX - rect.left;
 
-/* CAMERA */
+const y =
+e.clientY - rect.top;
 
-const camera =
-new THREE.PerspectiveCamera(
-45,
-window.innerWidth /
-window.innerHeight,
-.1,
-100
-);
+const centerX =
+rect.width / 2;
 
-camera.position.set(
-0,
-1,
-8
-);
+const centerY =
+rect.height / 2;
 
+const rotateX =
+((y-centerY)/centerY)*-6;
 
-/* RENDERER */
+const rotateY =
+((x-centerX)/centerX)*6;
 
-const renderer =
-new THREE.WebGLRenderer({
-antialias:true,
-alpha:true
+card.style.transform =
+`perspective(1000px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+translateY(-12px)`;
+
 });
 
-renderer.setPixelRatio(
-Math.min(
-window.devicePixelRatio,
-2
-));
+card.addEventListener("mouseleave",()=>{
 
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
+card.style.transform =
+"perspective(1000px) rotateX(0) rotateY(0) translateY(0)";
 
-renderer.shadowMap.enabled=true;
+});
 
-renderer.shadowMap.type=
-THREE.PCFSoftShadowMap;
-
-renderer.toneMapping=
-THREE.ACESFilmicToneMapping;
-
-renderer.toneMappingExposure=1.35;
-
-sceneContainer.appendChild(
-renderer.domElement
-);
-
-
-/* LIGHTING */
-
-const ambient =
-new THREE.AmbientLight(
-0xffe6d0,
-1.4
-);
-
-scene.add(ambient);
-
-
-const goldLight =
-new THREE.PointLight(
-0xffa94d,
-65,
-20
-);
-
-goldLight.position.set(
-3,
-4,
-4
-);
-
-goldLight.castShadow=true;
-
-scene.add(goldLight);
-
-
-const redLight =
-new THREE.PointLight(
-0x9e3f18,
-40,
-18
-);
-
-redLight.position.set(
--4,
-1,
-2
-);
-
-scene.add(redLight);
-
-
-/* TABLE */
-
-const tableMaterial =
-new THREE.MeshStandardMaterial({
-color:0x3a1b0c,
-roughness:.28,
-metalness:.25
 });
 
 
-const table =
-new THREE.Mesh(
-new THREE.CylinderGeometry(
-3,
-3,
-.22,
-64
-),
-tableMaterial
-);
+/* ---------- PARALLAX DECOR ---------- */
 
-table.position.y=-2.25;
+document.addEventListener("mousemove",e=>{
 
-table.castShadow=true;
+const x =
+(e.clientX/window.innerWidth-.5);
 
-scene.add(table);
+const y =
+(e.clientY/window.innerHeight-.5);
 
+document.querySelectorAll(".decor").forEach((item,index)=>{
 
-const leg =
-new THREE.Mesh(
-new THREE.CylinderGeometry(
-.3,
-.45,
-1,
-32
-),
-tableMaterial
-);
+const amount =
+(index+1)*18;
 
-leg.position.y=-2.8;
+item.style.translate =
+`${x*amount}px ${y*amount}px`;
 
-leg.castShadow=true;
+});
 
-scene.add(leg);
-
-
-/* CUP */
-
-const cupGroup =
-new THREE.Group();
-
-scene.add(cupGroup);
-
-
-const cupMaterial =
-new THREE.MeshPhysicalMaterial({
-color:0x2b1408,
-roughness:.17,
-metalness:.18,
-clearcoat:1,
-clearcoatRoughness:.08
 });
 
 
-const cup =
-new THREE.Mesh(
-new THREE.CylinderGeometry(
-.9,
-.68,
-.9,
-64
-),
-cupMaterial
-);
+/* ---------- SCROLL REVEAL ---------- */
 
-cup.position.y=-1.25;
+const observer =
+new IntersectionObserver(
+(entries)=>{
 
-cup.castShadow=true;
+entries.forEach(entry=>{
 
-cupGroup.add(cup);
+if(entry.isIntersecting){
 
-
-/* COFFEE */
-
-const coffee =
-new THREE.Mesh(
-new THREE.CylinderGeometry(
-.73,
-.73,
-.055,
-64
-),
-new THREE.MeshStandardMaterial({
-color:0x100301,
-roughness:.08
-})
-);
-
-coffee.position.y=-.79;
-
-cupGroup.add(coffee);
-
-
-/* CREMA */
-
-const crema =
-new THREE.Mesh(
-new THREE.TorusGeometry(
-.55,
-.035,
-12,
-64
-),
-new THREE.MeshStandardMaterial({
-color:0x9a5220,
-roughness:.2
-})
-);
-
-crema.position.y=-.755;
-
-cupGroup.add(crema);
-
-
-/* HANDLE */
-
-const handle =
-new THREE.Mesh(
-new THREE.TorusGeometry(
-.43,
-.11,
-24,
-64
-),
-cupMaterial
-);
-
-handle.rotation.y=
-Math.PI/2;
-
-handle.position.set(
-.84,
--1.23,
-0
-);
-
-handle.castShadow=true;
-
-cupGroup.add(handle);
-
-
-/* SAUCER */
-
-const saucer =
-new THREE.Mesh(
-new THREE.CylinderGeometry(
-1.25,
-1.12,
-.1,
-64
-),
-new THREE.MeshStandardMaterial({
-color:0x17100c,
-roughness:.22,
-metalness:.35
-})
-);
-
-saucer.position.y=-1.76;
-
-saucer.castShadow=true;
-
-cupGroup.add(saucer);
-
-
-/* STEAM */
-
-const steamGroup =
-new THREE.Group();
-
-scene.add(steamGroup);
-
-const steamMaterial =
-new THREE.MeshBasicMaterial({
-color:0xffffff,
-transparent:true,
-opacity:.15
-});
-
-const steam=[];
-
-for(let i=0;i<20;i++){
-
-const p =
-new THREE.Mesh(
-new THREE.SphereGeometry(
-.055,
-12,
-12
-),
-steamMaterial
-);
-
-p.position.set(
-(Math.random()-.5)*.7,
--.55+
-Math.random()*2.6,
-(Math.random()-.5)*.25
-);
-
-p.userData={
-speed:.004+
-Math.random()*.006,
-offset:Math.random()*10,
-baseX:p.position.x
-};
-
-steam.push(p);
-
-steamGroup.add(p);
+entry.target.style.opacity="1";
+entry.target.style.transform += " translateY(0)";
 
 }
 
-
-/* FLOATING RINGS */
-
-const rings =
-new THREE.Group();
-
-scene.add(rings);
-
-const ringMaterial =
-new THREE.MeshBasicMaterial({
-color:0xd9a45f,
-transparent:true,
-opacity:.28
 });
 
-for(let i=0;i<6;i++){
-
-const ring =
-new THREE.Mesh(
-new THREE.TorusGeometry(
-2.7+i*.5,
-.018,
-10,
-100
-),
-ringMaterial
-);
-
-ring.rotation.x=
-Math.PI/2;
-
-ring.position.y=
--2+i*.14;
-
-rings.add(ring);
-
-}
+},
+{
+threshold:.15
+});
 
 
-/* PARTICLES */
-
-const particleCount=450;
-
-const positions =
-new Float32Array(
-particleCount*3
-);
-
-for(let i=0;i<particleCount;i++){
-
-positions[i*3]=
-(Math.random()-.5)*18;
-
-positions[i*3+1]=
-(Math.random()-.5)*13;
-
-positions[i*3+2]=
-(Math.random()-.5)*12;
-
-}
-
-const geometry =
-new THREE.BufferGeometry();
-
-geometry.setAttribute(
-"position",
-new THREE.BufferAttribute(
-positions,
-3
+document
+.querySelectorAll(
+".menuCard,.introContent,.aboutBox,.decorText"
 )
-);
+.forEach(el=>{
 
-const particleMaterial =
-new THREE.PointsMaterial({
-color:0xd9a45f,
-size:.025,
-transparent:true,
-opacity:.55
-});
+el.style.opacity="0";
+el.style.transform +=
+" translateY(35px)";
 
-const particles =
-new THREE.Points(
-geometry,
-particleMaterial
-);
+el.style.transition=
+"opacity .9s ease, transform .9s ease";
 
-scene.add(particles);
-
-
-/* DECORATIVE IMAGE */
-
-const textureLoader =
-new THREE.TextureLoader();
-
-const coffeeTexture =
-textureLoader.load("3.jpeg");
-
-const imageMaterial =
-new THREE.MeshBasicMaterial({
-map:coffeeTexture,
-transparent:true,
-side:THREE.DoubleSide
-});
-
-const imagePlane =
-new THREE.Mesh(
-new THREE.PlaneGeometry(
-2.5,
-3.2
-),
-imageMaterial
-);
-
-imagePlane.position.set(
--3.6,
-.4,
--1
-);
-
-imagePlane.rotation.y=.35;
-
-scene.add(imagePlane);
-
-
-/* MOUSE */
-
-let mouseX=0;
-let mouseY=0;
-
-window.addEventListener(
-"mousemove",
-e=>{
-
-mouseX=
-e.clientX/
-window.innerWidth-.5;
-
-mouseY=
-e.clientY/
-window.innerHeight-.5;
-
-});
-
-
-/* ANIMATION */
-
-const clock =
-new THREE.Clock();
-
-function animate(){
-
-requestAnimationFrame(
-animate
-);
-
-const t =
-clock.getElapsedTime();
-
-
-/* CAMERA */
-
-camera.position.x +=
-(mouseX*1.2-
-camera.position.x)*.025;
-
-camera.position.y +=
-(1-
-mouseY*.6-
-camera.position.y)*.025;
-
-camera.lookAt(
-0,
--.3,
-0
-);
-
-
-/* CUP */
-
-cupGroup.position.y=
-Math.sin(t*1.4)*.1;
-
-cupGroup.rotation.y=
-Math.sin(t*.55)*.12;
-
-cupGroup.rotation.z=
-Math.sin(t*.8)*.018;
-
-
-/* STEAM */
-
-steam.forEach((p,i)=>{
-
-p.position.y +=
-p.userData.speed;
-
-p.position.x =
-p.userData.baseX+
-Math.sin(
-t*1.5+
-p.userData.offset
-)*.16;
-
-p.material.opacity =
-.04+
-(Math.sin(t*2+i)+1)*.06;
-
-if(p.position.y>2.5){
-p.position.y=-.55;
-}
-
-});
-
-
-/* RINGS */
-
-rings.rotation.z=
-t*.12;
-
-rings.rotation.y=
-Math.sin(t*.3)*.15;
-
-
-/* PARTICLES */
-
-particles.rotation.y=
-t*.012;
-
-particles.rotation.x=
-Math.sin(t*.2)*.03;
-
-
-/* IMAGE */
-
-imagePlane.position.y=
-.4+
-Math.sin(t*.8)*.12;
-
-imagePlane.rotation.y=
-.35+
-Math.sin(t*.5)*.1;
-
-
-/* LIGHT */
-
-goldLight.position.x=
-3+
-Math.sin(t*.5)*1.3;
-
-goldLight.position.z=
-4+
-Math.cos(t*.4);
-
-
-/* RENDER */
-
-renderer.render(
-scene,
-camera
-);
-
-}
-
-animate();
-
-
-/* RESIZE */
-
-window.addEventListener(
-"resize",
-()=>{
-
-camera.aspect=
-window.innerWidth/
-window.innerHeight;
-
-camera.updateProjectionMatrix();
-
-renderer.setSize(
-window.innerWidth,
-window.innerHeight
-);
+observer.observe(el);
 
 });
 
