@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NOIR — Coffee Experience</title>
+<title>NOIR — Immersive Coffee</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -22,65 +23,88 @@ html{
 }
 
 body{
-    background:#050302;
-    color:#f4e8dc;
-    font-family:Vazirmatn,sans-serif;
+    margin:0;
+    background:#030201;
+    color:#f4e9df;
+    font-family:"Vazirmatn",sans-serif;
     overflow-x:hidden;
 }
 
-/* ---------- BACKGROUND ---------- */
+/* =========================
+   GLOBAL
+========================= */
 
-body::before{
+:root{
+    --gold:#dca76b;
+    --gold2:#9b6335;
+    --cream:#f4e9df;
+    --muted:#95867d;
+    --dark:#030201;
+    --brown:#170a04;
+}
+
+body::after{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
-    z-index:100;
+    z-index:999;
     background:
-        radial-gradient(circle at 50% 20%,
-        transparent 20%,
-        rgba(0,0,0,.25) 60%,
-        rgba(0,0,0,.8) 100%);
+        radial-gradient(
+            circle at center,
+            transparent 35%,
+            rgba(0,0,0,.35) 75%,
+            rgba(0,0,0,.72)
+        );
 }
 
-/* ---------- NAV ---------- */
+/* =========================
+   NAV
+========================= */
 
 .nav{
     position:fixed;
     top:0;
     right:0;
     width:100%;
-    height:80px;
+    height:82px;
     padding:0 7%;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    z-index:50;
-    background:linear-gradient(
-        rgba(5,3,2,.9),
-        transparent
-    );
+    justify-content:space-between;
+    z-index:100;
+    background:
+        linear-gradient(
+            rgba(3,2,1,.92),
+            transparent
+        );
 }
 
 .logo{
     font-size:24px;
     font-weight:800;
-    letter-spacing:9px;
+    letter-spacing:10px;
 }
 
-.nav a{
-    color:#a99b91;
+.navLinks{
+    display:flex;
+    gap:32px;
+}
+
+.navLinks a{
+    color:#a9998e;
     text-decoration:none;
-    margin-right:30px;
-    font-size:12px;
+    font-size:11px;
     transition:.3s;
 }
 
-.nav a:hover{
-    color:#dca76b;
+.navLinks a:hover{
+    color:var(--gold);
 }
 
-/* ---------- HERO ---------- */
+/* =========================
+   HERO
+========================= */
 
 .hero{
     min-height:100vh;
@@ -94,131 +118,502 @@ body::before{
 .heroImage{
     position:absolute;
     inset:0;
-    z-index:-3;
+    z-index:-5;
 }
 
 .heroImage img{
     width:100%;
     height:100%;
     object-fit:cover;
-    opacity:.42;
-    filter:brightness(.45) contrast(1.15);
-    transform:scale(1.04);
+    opacity:.34;
+    filter:
+        brightness(.48)
+        contrast(1.15)
+        saturate(.8);
+    transform:scale(1.06);
 }
 
 .heroOverlay{
     position:absolute;
     inset:0;
-    z-index:-2;
+    z-index:-4;
     background:
         linear-gradient(
             90deg,
-            #050302 0%,
-            rgba(5,3,2,.72) 45%,
-            rgba(5,3,2,.2) 100%
+            #030201 0%,
+            rgba(3,2,1,.85) 30%,
+            rgba(3,2,1,.35) 70%,
+            rgba(3,2,1,.75) 100%
         );
+}
+
+.heroGlow{
+    position:absolute;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    right:-200px;
+    top:10%;
+    background:
+        radial-gradient(
+            circle,
+            rgba(194,104,40,.28),
+            transparent 68%
+        );
+    filter:blur(20px);
+    animation:glowMove 8s infinite alternate ease-in-out;
+}
+
+@keyframes glowMove{
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(-120px,70px) scale(1.3);
+    }
 }
 
 .heroContent{
     max-width:700px;
     position:relative;
-    z-index:5;
+    z-index:20;
 }
 
 .eyebrow{
-    color:#dca76b;
+    color:var(--gold);
     font-size:10px;
     letter-spacing:6px;
     margin-bottom:25px;
 }
 
 .hero h1{
-    font-size:clamp(75px,13vw,180px);
+    font-size:
+        clamp(
+            75px,
+            13vw,
+            175px
+        );
     line-height:.78;
-    letter-spacing:-8px;
+    letter-spacing:-9px;
+    font-weight:800;
+    text-shadow:
+        0 20px 60px rgba(0,0,0,.9);
 }
 
 .hero h1 span{
-    color:#dca76b;
+    color:var(--gold);
 }
 
-.heroText{
-    margin-top:38px;
-    max-width:520px;
-    color:#a99b91;
-    line-height:2.2;
+.heroDescription{
+    max-width:530px;
+    margin-top:40px;
+    color:#aa9b91;
     font-size:14px;
+    line-height:2.3;
 }
 
 .heroButton{
-    display:inline-block;
-    margin-top:32px;
-    padding:15px 32px;
-    border:1px solid #8f6339;
-    color:#fff;
+    display:inline-flex;
+    margin-top:34px;
+    padding:16px 32px;
+    border:1px solid #895c35;
+    color:#f5eee8;
     text-decoration:none;
     font-size:12px;
-    transition:.4s;
+    transition:.45s;
 }
 
 .heroButton:hover{
-    background:#dca76b;
-    color:#160b05;
-    transform:translateY(-5px);
+    background:var(--gold);
+    color:#160a04;
+    transform:translateY(-6px);
+    box-shadow:
+        0 20px 50px rgba(194,119,58,.2);
 }
 
-.scrollHint{
+.scrollText{
     position:absolute;
     bottom:30px;
     left:50%;
     transform:translateX(-50%);
-    color:#71655e;
-    font-size:9px;
+    color:#625851;
+    font-size:8px;
     letter-spacing:5px;
+    z-index:20;
 }
 
-/* ---------- DECOR ---------- */
+/* =========================
+   3D SCENE
+========================= */
 
-.decor{
+.scene3D{
     position:absolute;
-    z-index:1;
-    pointer-events:none;
-    object-fit:cover;
-    opacity:.65;
-    filter:brightness(.65) contrast(1.1);
-    box-shadow:0 30px 80px rgba(0,0,0,.7);
+    width:520px;
+    height:520px;
+    right:7%;
+    top:50%;
+    transform:
+        translateY(-50%)
+        perspective(1000px);
+    transform-style:preserve-3d;
+    z-index:10;
+    transition:transform .2s ease-out;
 }
 
-.decorOne{
+/* floating rings */
+
+.ring{
+    position:absolute;
+    border:1px solid rgba(220,167,107,.22);
+    border-radius:50%;
+    transform-style:preserve-3d;
+}
+
+.ring1{
+    width:470px;
+    height:470px;
+    left:25px;
+    top:25px;
+    transform:
+        rotateX(67deg)
+        rotateZ(15deg);
+    animation:ringSpin 18s linear infinite;
+}
+
+.ring2{
+    width:380px;
+    height:380px;
+    left:70px;
+    top:70px;
+    border-color:rgba(220,167,107,.15);
+    transform:
+        rotateX(68deg)
+        rotateZ(-25deg);
+    animation:ringSpinReverse 13s linear infinite;
+}
+
+.ring3{
+    width:290px;
+    height:290px;
+    left:115px;
+    top:115px;
+    border-color:rgba(255,180,90,.12);
+    transform:
+        rotateX(70deg);
+    animation:ringSpin 9s linear infinite;
+}
+
+@keyframes ringSpin{
+    from{
+        transform:
+            rotateX(67deg)
+            rotateZ(0deg);
+    }
+
+    to{
+        transform:
+            rotateX(67deg)
+            rotateZ(360deg);
+    }
+}
+
+@keyframes ringSpinReverse{
+    from{
+        transform:
+            rotateX(68deg)
+            rotateZ(360deg);
+    }
+
+    to{
+        transform:
+            rotateX(68deg)
+            rotateZ(0deg);
+    }
+}
+
+/* table */
+
+.table3D{
+    position:absolute;
+    width:390px;
+    height:390px;
+    left:65px;
+    bottom:5px;
+    border-radius:50%;
+    transform:
+        rotateX(68deg)
+        translateZ(-20px);
+    background:
+        radial-gradient(
+            ellipse,
+            #3c1b0c,
+            #130703 55%,
+            #050201 75%
+        );
+    box-shadow:
+        0 80px 90px rgba(0,0,0,.85),
+        inset 0 0 50px rgba(0,0,0,.75);
+}
+
+/* table edge */
+
+.tableEdge{
+    position:absolute;
+    width:390px;
+    height:45px;
+    left:65px;
+    bottom:-3px;
+    border-radius:50%;
+    background:
+        linear-gradient(
+            #43200d,
+            #120603
+        );
+    transform:
+        rotateX(68deg)
+        translateZ(-40px);
+    filter:blur(.5px);
+}
+
+/* cup */
+
+.cup{
+    position:absolute;
+    width:175px;
+    height:125px;
+    left:175px;
+    bottom:150px;
+    transform-style:preserve-3d;
+    animation:
+        cupFloat 4s infinite ease-in-out;
+}
+
+@keyframes cupFloat{
+    0%,100%{
+        transform:
+            translateY(0)
+            rotateY(-8deg)
+            rotateZ(0deg);
+    }
+
+    50%{
+        transform:
+            translateY(-13px)
+            rotateY(8deg)
+            rotateZ(1deg);
+    }
+}
+
+/* cup body */
+
+.cupBody{
+    position:absolute;
+    width:150px;
+    height:115px;
+    left:8px;
+    top:5px;
+    border-radius:
+        15px
+        15px
+        45px
+        45px;
+    background:
+        linear-gradient(
+            90deg,
+            #180a04,
+            #5b2912 45%,
+            #241006
+        );
+    box-shadow:
+        inset 15px 0 20px rgba(255,255,255,.04),
+        inset -15px 0 25px rgba(0,0,0,.65),
+        0 35px 50px rgba(0,0,0,.75);
+    transform:
+        rotateX(-3deg);
+}
+
+/* coffee */
+
+.coffee{
+    position:absolute;
+    width:125px;
+    height:28px;
+    left:21px;
+    top:-4px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            #9e5122,
+            #54200b 38%,
+            #180501 75%
+        );
+    box-shadow:
+        inset 0 0 15px rgba(0,0,0,.8),
+        0 0 15px rgba(146,69,25,.25);
+    z-index:4;
+}
+
+/* crema */
+
+.crema{
+    position:absolute;
+    width:98px;
+    height:12px;
+    left:35px;
+    top:1px;
+    border-radius:50%;
+    border:2px solid rgba(220,136,66,.45);
+    z-index:5;
+}
+
+/* handle */
+
+.handle{
+    position:absolute;
+    width:62px;
+    height:65px;
+    right:-25px;
+    top:26px;
+    border:14px solid #321508;
+    border-radius:50%;
+    box-shadow:
+        inset 5px 0 10px rgba(0,0,0,.6);
+    transform:rotateY(-15deg);
+}
+
+/* saucer */
+
+.saucer{
+    position:absolute;
     width:220px;
-    height:300px;
-    left:5%;
-    top:15%;
-    transform:rotate(-8deg);
+    height:45px;
+    left:-15px;
+    bottom:-15px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            #32160a,
+            #0e0502
+        );
+    box-shadow:
+        0 25px 30px rgba(0,0,0,.7);
+    transform:
+        rotateX(67deg);
 }
 
-.decorTwo{
+/* cup highlight */
+
+.cupHighlight{
+    position:absolute;
+    width:8px;
+    height:65px;
+    left:30px;
+    top:25px;
+    border-radius:50%;
+    background:
+        linear-gradient(
+            transparent,
+            rgba(255,210,165,.15),
+            transparent
+        );
+    filter:blur(2px);
+}
+
+/* steam */
+
+.steam{
+    position:absolute;
+    width:14px;
+    height:145px;
+    border-left:
+        2px solid
+        rgba(255,255,255,.17);
+    border-radius:50%;
+    left:95px;
+    top:-150px;
+    filter:blur(2px);
+    opacity:0;
+    animation:steamMove 3.4s infinite ease-in-out;
+}
+
+.steam2{
+    left:120px;
+    height:130px;
+    animation-delay:1.1s;
+}
+
+.steam3{
+    left:70px;
+    height:110px;
+    animation-delay:2s;
+}
+
+@keyframes steamMove{
+
+    0%{
+        opacity:0;
+        transform:
+            translateY(30px)
+            translateX(0)
+            rotate(4deg)
+            scale(.7);
+    }
+
+    30%{
+        opacity:.5;
+    }
+
+    70%{
+        opacity:.25;
+    }
+
+    100%{
+        opacity:0;
+        transform:
+            translateY(-25px)
+            translateX(25px)
+            rotate(-8deg)
+            scale(1.3);
+    }
+}
+
+/* glow under cup */
+
+.cupGlow{
+    position:absolute;
     width:250px;
-    height:330px;
-    right:5%;
-    bottom:8%;
-    transform:rotate(7deg);
+    height:100px;
+    left:135px;
+    bottom:110px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(197,103,39,.3),
+            transparent 70%
+        );
+    filter:blur(20px);
 }
 
-/* ---------- INTRO ---------- */
+/* =========================
+   INTRO
+========================= */
 
 .intro{
     min-height:100vh;
+    position:relative;
     padding:160px 8%;
     display:flex;
     align-items:center;
-    position:relative;
     overflow:hidden;
     background:
         radial-gradient(
             circle at 70% 50%,
-            #321a0d,
-            #080403 55%
+            #291308,
+            #050302 65%
         );
 }
 
@@ -227,377 +622,403 @@ body::before{
 }
 
 .intro h2{
-    font-size:clamp(55px,8vw,110px);
-    line-height:.95;
+    font-size:
+        clamp(
+            55px,
+            8vw,
+            110px
+        );
+    line-height:.92;
     margin:25px 0 35px;
 }
 
 .intro p{
-    color:#988b82;
-    line-height:2.4;
+    color:#93857c;
+    line-height:2.5;
+    max-width:620px;
 }
 
-.coffeeScene{
+.introNumber{
     position:absolute;
-    left:8%;
-    width:390px;
-    height:390px;
-    border-radius:50%;
-    background:
-        radial-gradient(
-            circle,
-            #5d2c12,
-            #160904 62%,
-            transparent 63%
-        );
-    box-shadow:
-        0 0 100px rgba(155,75,22,.3);
-    transform:rotateX(65deg);
+    left:7%;
+    bottom:10%;
+    font-size:150px;
+    font-weight:800;
+    color:rgba(255,255,255,.025);
 }
 
-.coffeeScene::before{
-    content:"";
-    position:absolute;
-    width:220px;
-    height:220px;
-    left:85px;
-    top:80px;
-    border-radius:50%;
-    background:
-        radial-gradient(
-            circle at 40% 35%,
-            #a95b29,
-            #351305 45%,
-            #0e0301 70%
-        );
-    box-shadow:
-        inset 0 0 25px #000,
-        0 30px 50px rgba(0,0,0,.8);
-}
+/* =========================
+   SPECIAL MOMENT
+========================= */
 
-.steam{
-    position:absolute;
-    left:190px;
-    top:-70px;
-    width:12px;
-    height:150px;
-    border-radius:50%;
-    border-left:2px solid rgba(255,255,255,.15);
-    filter:blur(2px);
-    animation:steam 3s infinite ease-in-out;
-}
-
-.steam:nth-child(2){
-    left:235px;
-    animation-delay:1s;
-}
-
-.steam:nth-child(3){
-    left:150px;
-    animation-delay:1.8s;
-}
-
-@keyframes steam{
-    0%,100%{
-        transform:translateY(25px) rotate(4deg);
-        opacity:0;
-    }
-    50%{
-        transform:translateY(-20px) rotate(-5deg);
-        opacity:1;
-    }
-}
-
-/* ---------- SIGNATURE ---------- */
-
-.signature{
+.special{
     min-height:90vh;
     position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
     overflow:hidden;
-    background:#070403;
-}
-
-.signatureImage{
-    position:absolute;
-    width:min(500px,75vw);
-    height:620px;
-    object-fit:cover;
-    border-radius:20px;
-    opacity:.5;
-    filter:brightness(.65);
-    transform:
-        perspective(1200px)
-        rotateY(-18deg)
-        rotateX(5deg);
-    box-shadow:
-        0 50px 100px rgba(0,0,0,.8);
-    transition:1s;
-}
-
-.signature:hover .signatureImage{
-    transform:
-        perspective(1200px)
-        rotateY(0)
-        rotateX(0)
-        scale(1.03);
-}
-
-.signatureContent{
-    position:relative;
-    z-index:4;
-    text-align:center;
-    text-shadow:0 20px 50px #000;
-}
-
-.signatureContent h2{
-    font-size:clamp(55px,10vw,140px);
-    line-height:.85;
-}
-
-.signatureContent span{
-    color:#dca76b;
-}
-
-/* ---------- MENU ---------- */
-
-.menu{
-    padding:150px 6%;
-    background:
-        linear-gradient(
-            #070403,
-            #030201
-        );
-}
-
-.menuHeader{
-    text-align:center;
-    margin-bottom:80px;
-}
-
-.menuHeader h2{
-    font-size:clamp(60px,9vw,125px);
-    line-height:1;
-}
-
-.menuHeader p{
-    margin-top:20px;
-    color:#776b63;
-}
-
-.menuGrid{
-    max-width:1250px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-}
-
-.menuCard{
-    position:relative;
-    height:480px;
-    overflow:hidden;
-    background:#100804;
-    border:1px solid #25170f;
-    transform-style:preserve-3d;
-    transition:.45s;
-}
-
-.menuCard:hover{
-    transform:
-        perspective(1000px)
-        rotateX(4deg)
-        rotateY(-5deg)
-        translateY(-14px);
-    border-color:#9b6b3e;
-    box-shadow:
-        0 35px 70px rgba(0,0,0,.7);
-}
-
-.menuCard img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:1s;
-}
-
-.menuCard:hover img{
-    transform:scale(1.09);
-}
-
-.menuCard::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(
-            transparent 15%,
-            rgba(0,0,0,.9) 90%
-        );
-}
-
-.menuInfo{
-    position:absolute;
-    bottom:0;
-    right:0;
-    left:0;
-    padding:28px;
-    z-index:3;
-}
-
-.menuNumber{
-    color:#dca76b;
-    font-size:9px;
-    letter-spacing:4px;
-}
-
-.menuInfo h3{
-    margin:10px 0;
-    font-size:25px;
-}
-
-.menuInfo p{
-    color:#a0938a;
-    font-size:12px;
-    line-height:2;
-}
-
-.price{
-    display:block;
-    margin-top:13px;
-    color:#dca76b;
-}
-
-/* ---------- SPECIAL DECOR ---------- */
-
-.decorSection{
-    min-height:75vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
     background:
         radial-gradient(
             circle,
-            #351b0c,
-            #050302 65%
+            #361a0b,
+            #030201 70%
         );
 }
 
-.decorSection img{
+.specialCircle{
     position:absolute;
-    width:340px;
-    height:450px;
-    object-fit:cover;
-    opacity:.35;
-    transition:1s;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    border:1px solid rgba(220,167,107,.14);
+    transform:rotateX(65deg);
+    animation:pulseCircle 5s infinite ease-in-out;
 }
 
-.decorLeft{
-    left:8%;
-    transform:
-        perspective(1000px)
-        rotateY(25deg)
-        rotateZ(-5deg);
+@keyframes pulseCircle{
+
+    0%,100%{
+        transform:
+            rotateX(65deg)
+            scale(.95);
+        opacity:.35;
+    }
+
+    50%{
+        transform:
+            rotateX(65deg)
+            scale(1.08);
+        opacity:.8;
+    }
 }
 
-.decorRight{
-    right:8%;
-    transform:
-        perspective(1000px)
-        rotateY(-25deg)
-        rotateZ(5deg);
-}
-
-.decorSection:hover .decorLeft{
-    transform:
-        perspective(1000px)
-        rotateY(8deg)
-        rotateZ(-3deg)
-        scale(1.04);
-}
-
-.decorSection:hover .decorRight{
-    transform:
-        perspective(1000px)
-        rotateY(-8deg)
-        rotateZ(3deg)
-        scale(1.04);
-}
-
-.decorText{
+.specialText{
     text-align:center;
     position:relative;
     z-index:5;
 }
 
-.decorText h2{
-    font-size:clamp(50px,8vw,105px);
+.specialText h2{
+    font-size:
+        clamp(
+            60px,
+            10vw,
+            145px
+        );
+    line-height:.8;
+    text-shadow:
+        0 30px 80px rgba(0,0,0,.8);
+}
+
+.specialText span{
+    color:var(--gold);
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu{
+    padding:160px 6%;
+    background:
+        linear-gradient(
+            #060302,
+            #020100
+        );
+}
+
+.menuHeader{
+    text-align:center;
+    margin-bottom:90px;
+}
+
+.menuHeader h2{
+    font-size:
+        clamp(
+            60px,
+            9vw,
+            125px
+        );
     line-height:.9;
 }
 
-.decorText span{
-    color:#dca76b;
+.menuHeader p{
+    margin-top:25px;
+    color:#746961;
+    font-size:13px;
 }
 
-/* ---------- ABOUT ---------- */
+/* grid */
+
+.menuGrid{
+    max-width:1250px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:28px;
+}
+
+/* card */
+
+.menuCard{
+    height:500px;
+    position:relative;
+    overflow:hidden;
+    border:
+        1px solid
+        rgba(150,95,48,.22);
+    background:#0b0502;
+    transform-style:preserve-3d;
+    transition:
+        transform .15s ease,
+        box-shadow .4s ease,
+        border-color .4s ease;
+    will-change:transform;
+}
+
+.menuCard:hover{
+    border-color:#a06d3c;
+    box-shadow:
+        0 40px 90px rgba(0,0,0,.75),
+        0 0 40px rgba(165,91,32,.08);
+}
+
+/* image */
+
+.cardImage{
+    position:absolute;
+    inset:0;
+    transform:translateZ(0);
+}
+
+.cardImage img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:
+        transform 1s ease,
+        filter 1s ease;
+    filter:
+        brightness(.72)
+        contrast(1.08)
+        saturate(.9);
+}
+
+.menuCard:hover .cardImage img{
+    transform:
+        scale(1.12)
+        translateZ(25px);
+    filter:
+        brightness(.86)
+        contrast(1.08)
+        saturate(1);
+}
+
+/* overlay */
+
+.cardOverlay{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            transparent 10%,
+            rgba(0,0,0,.15) 35%,
+            rgba(0,0,0,.94) 100%
+        );
+    z-index:2;
+}
+
+/* glass */
+
+.cardGlass{
+    position:absolute;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    top:-80px;
+    left:-80px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,190,120,.14),
+            transparent 70%
+        );
+    filter:blur(15px);
+    transform:translateZ(45px);
+    pointer-events:none;
+}
+
+/* info */
+
+.menuInfo{
+    position:absolute;
+    right:0;
+    bottom:0;
+    width:100%;
+    padding:30px;
+    z-index:5;
+    transform:translateZ(55px);
+    text-shadow:
+        0 5px 20px #000;
+}
+
+.menuNumber{
+    color:var(--gold);
+    font-size:9px;
+    letter-spacing:4px;
+}
+
+.menuInfo h3{
+    font-size:27px;
+    margin:9px 0;
+}
+
+.menuInfo p{
+    color:#b0a198;
+    font-size:12px;
+    line-height:2;
+    max-width:330px;
+}
+
+.price{
+    display:block;
+    margin-top:14px;
+    color:var(--gold);
+    font-size:13px;
+}
+
+/* =========================
+   DESSERT FEATURE
+========================= */
+
+.feature{
+    min-height:80vh;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#050302;
+}
+
+.featureOrb{
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    position:absolute;
+    background:
+        radial-gradient(
+            circle,
+            rgba(155,75,31,.22),
+            transparent 68%
+        );
+    filter:blur(10px);
+}
+
+.featureContent{
+    position:relative;
+    z-index:4;
+    text-align:center;
+}
+
+.featureContent h2{
+    font-size:
+        clamp(
+            55px,
+            8vw,
+            110px
+        );
+    line-height:.9;
+}
+
+.featureContent h2 span{
+    color:var(--gold);
+}
+
+.featureContent p{
+    max-width:550px;
+    margin:30px auto 0;
+    color:#8e8178;
+    line-height:2.4;
+}
+
+/* =========================
+   ABOUT
+========================= */
 
 .about{
     min-height:80vh;
     padding:140px 8%;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     text-align:center;
-    background:#050302;
+    background:
+        radial-gradient(
+            circle at center,
+            #1c0d06,
+            #030201 68%
+        );
 }
 
-.aboutBox{
-    max-width:800px;
+.aboutContent{
+    max-width:850px;
 }
 
-.aboutBox h2{
-    font-size:clamp(55px,8vw,110px);
+.aboutContent h2{
+    font-size:
+        clamp(
+            55px,
+            8vw,
+            110px
+        );
     line-height:.9;
     margin:25px 0 35px;
 }
 
-.aboutBox p{
-    color:#91847c;
+.aboutContent p{
+    color:#90827a;
     line-height:2.5;
 }
 
-/* ---------- CONTACT ---------- */
+/* =========================
+   CONTACT
+========================= */
 
 .contact{
-    padding:130px 7%;
+    padding:140px 7%;
     background:#020100;
 }
 
-.contactTitle{
+.contactHeader{
     text-align:center;
     margin-bottom:70px;
 }
 
-.contactTitle h2{
-    font-size:clamp(50px,8vw,95px);
+.contactHeader h2{
+    font-size:
+        clamp(
+            50px,
+            8vw,
+            95px
+        );
 }
 
 .contactGrid{
-    max-width:1000px;
+    max-width:1050px;
     margin:auto;
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
     border-top:1px solid #24160f;
     border-bottom:1px solid #24160f;
 }
 
 .contactBox{
+    padding:50px 20px;
     text-align:center;
-    padding:45px 20px;
     border-left:1px solid #24160f;
 }
 
@@ -606,7 +1027,7 @@ body::before{
 }
 
 .contactBox span{
-    color:#dca76b;
+    color:var(--gold);
     font-size:9px;
     letter-spacing:4px;
 }
@@ -621,74 +1042,103 @@ body::before{
     line-height:2;
 }
 
-/* ---------- FOOTER ---------- */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-    padding:80px 20px 35px;
+    padding:90px 20px 35px;
     text-align:center;
     background:#010100;
 }
 
 .footerLogo{
-    font-size:50px;
+    font-size:52px;
     font-weight:800;
-    letter-spacing:13px;
+    letter-spacing:14px;
 }
 
 .footerText{
-    color:#514942;
-    margin-top:15px;
-    font-size:9px;
-    letter-spacing:4px;
+    margin-top:18px;
+    color:#504741;
+    font-size:8px;
+    letter-spacing:5px;
 }
 
-/* ---------- MOBILE ---------- */
+/* =========================
+   REVEAL
+========================= */
 
-@media(max-width:900px){
+.reveal{
+    opacity:0;
+    transform:translateY(60px);
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
 
-    .nav a{
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:1000px){
+
+    .navLinks{
         display:none;
     }
 
     .hero{
-        text-align:center;
         justify-content:center;
+        text-align:center;
     }
 
-    .heroText{
-        margin-left:auto;
-        margin-right:auto;
+    .heroContent{
+        position:relative;
+        z-index:30;
     }
 
-    .decor{
-        opacity:.25;
-    }
-
-    .coffeeScene{
-        opacity:.3;
-        left:50%;
+    .scene3D{
+        opacity:.28;
+        right:50%;
         transform:
-            translateX(-50%)
-            rotateX(65deg);
+            translate(50%,-35%)
+            scale(.8);
     }
 
     .menuGrid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
-    .decorLeft{
-        left:-80px;
-    }
-
-    .decorRight{
-        right:-80px;
-    }
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
+
+    .hero{
+        min-height:100svh;
+        padding:100px 7%;
+    }
 
     .hero h1{
         font-size:75px;
+        letter-spacing:-5px;
+    }
+
+    .heroDescription{
+        font-size:12px;
+    }
+
+    .scene3D{
+        width:390px;
+        height:390px;
+        transform:
+            translate(50%,-35%)
+            scale(.72);
     }
 
     .menuGrid{
@@ -696,13 +1146,7 @@ footer{
     }
 
     .menuCard{
-        height:450px;
-    }
-
-    .decorOne,
-    .decorTwo{
-        width:150px;
-        height:220px;
+        height:460px;
     }
 
     .contactGrid{
@@ -718,651 +1162,963 @@ footer{
         border-bottom:0;
     }
 
-    .signatureImage{
-        width:75vw;
-        height:500px;
+    .intro{
+        text-align:center;
+        justify-content:center;
     }
+
+    .introContent{
+        position:relative;
+        z-index:5;
+    }
+
+    .introNumber{
+        font-size:90px;
+    }
+
 }
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- NAV -->
 
-<nav class="nav">
+<!-- =========================
+     NAV
+========================= -->
 
-<div class="logo">
-NOIR
-</div>
+<header class="nav">
 
-<div>
-<a href="#home">خانه</a>
-<a href="#experience">تجربه</a>
-<a href="#menu">منو</a>
-<a href="#about">درباره ما</a>
-<a href="#contact">تماس</a>
-</div>
+    <div class="logo">
+        NOIR
+    </div>
 
-</nav>
+    <nav class="navLinks">
+
+        <a href="#home">
+            خانه
+        </a>
+
+        <a href="#experience">
+            تجربه
+        </a>
+
+        <a href="#menu">
+            منو
+        </a>
+
+        <a href="#about">
+            درباره ما
+        </a>
+
+        <a href="#contact">
+            تماس
+        </a>
+
+    </nav>
+
+</header>
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero" id="home">
 
-<div class="heroImage">
-<img src="1.jpeg" alt="NOIR Coffee">
-</div>
 
-<div class="heroOverlay"></div>
+    <!-- فقط کاور -->
+    <div class="heroImage">
 
-<img class="decor decorOne"
-src="3.jpeg"
-alt="دکور NOIR">
+        <img
+            src="1.jpeg"
+            alt="NOIR Coffee"
+        >
 
-<img class="decor decorTwo"
-src="4.jpeg"
-alt="دکور NOIR">
+    </div>
 
 
-<div class="heroContent">
+    <div class="heroOverlay"></div>
 
-<div class="eyebrow">
-IMMERSIVE COFFEE EXPERIENCE
-</div>
-
-<h1>
-NOIR
-<br>
-<span>COFFEE</span>
-</h1>
-
-<p class="heroText">
-جایی که قهوه فقط یک نوشیدنی نیست.
-نور، عطر، صدا و طراحی در کنار هم
-یک تجربه‌ی متفاوت برای تو می‌سازند.
-</p>
-
-<a class="heroButton" href="#menu">
-کشف منوی NOIR
-</a>
-
-</div>
-
-<div class="scrollHint">
-SCROLL TO DISCOVER
-</div>
-
-</section>
+    <div class="heroGlow"></div>
 
 
-<!-- INTRO -->
+    <!-- 3D SCENE -->
 
-<section class="intro" id="experience">
+    <div class="scene3D" id="scene3D">
 
-<div class="coffeeScene">
+        <div class="ring ring1"></div>
 
-<div class="steam"></div>
-<div class="steam"></div>
-<div class="steam"></div>
+        <div class="ring ring2"></div>
 
-</div>
+        <div class="ring ring3"></div>
 
-<div class="introContent">
+        <div class="cupGlow"></div>
 
-<div class="eyebrow">
-THE FIRST SIP
-</div>
+        <div class="table3D"></div>
 
-<h2>
-اولین جرعه،
-<br>
-شروع تجربه است.
-</h2>
-
-<p>
-در NOIR فضای کافه بخشی از طعم قهوه است.
-یک محیط تاریک و گرم، نورهای نرم،
-و جزئیاتی که باعث می‌شوند هر بار
-آمدنت حس متفاوتی داشته باشد.
-</p>
-
-</div>
-
-</section>
+        <div class="tableEdge"></div>
 
 
-<!-- CAPPUCCINO -->
+        <div class="cup">
 
-<section class="signature">
+            <div class="saucer"></div>
 
-<img
-class="signatureImage"
-src="2.jpeg"
-alt="کاپوچینو">
+            <div class="cupBody">
 
-<div class="signatureContent">
+                <div class="cupHighlight"></div>
 
-<div class="eyebrow">
-NOIR SIGNATURE
-</div>
+            </div>
 
-<h2>
-CAPPUCCINO
-<br>
-<span>02</span>
-</h2>
+            <div class="coffee"></div>
 
-</div>
+            <div class="crema"></div>
+
+            <div class="handle"></div>
+
+
+            <div class="steam"></div>
+            <div class="steam steam2"></div>
+            <div class="steam steam3"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEXT -->
+
+    <div class="heroContent reveal">
+
+        <div class="eyebrow">
+            IMMERSIVE COFFEE EXPERIENCE
+        </div>
+
+        <h1>
+            NOIR
+            <br>
+            <span>COFFEE</span>
+        </h1>
+
+        <p class="heroDescription">
+            جایی که قهوه فقط یک نوشیدنی نیست؛
+            ترکیبی از نور، عطر، فضا و طراحی
+            برای ساختن یک تجربه‌ی متفاوت.
+        </p>
+
+        <a
+            href="#menu"
+            class="heroButton"
+        >
+            کشف منوی NOIR
+        </a>
+
+    </div>
+
+
+    <div class="scrollText">
+        SCROLL TO DISCOVER
+    </div>
 
 </section>
 
 
-<!-- MENU -->
-
-<section class="menu" id="menu">
-
-<div class="menuHeader">
-
-<div class="eyebrow">
-THE MENU
-</div>
-
-<h2>
-منوی NOIR
-</h2>
-
-<p>
-انتخاب کن. مزه کن. دوباره برگرد.
-</p>
-
-</div>
-
-
-<div class="menuGrid">
-
-
-<!-- 5 -->
-
-<article class="menuCard">
-
-<img src="5.jpeg" alt="موکا">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-01 / COFFEE
-</div>
-
-<h3>موکا</h3>
-
-<p>
-اسپرسو، شیر و شکلات
-با طعمی عمیق و گرم.
-</p>
-
-<span class="price">
-۱۸۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 6 -->
-
-<article class="menuCard">
-
-<img src="6.jpeg" alt="آمریکانو">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-02 / COFFEE
-</div>
-
-<h3>آمریکانو</h3>
-
-<p>
-قهوه‌ای کلاسیک
-با طعمی قدرتمند.
-</p>
-
-<span class="price">
-۱۴۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 7 -->
-
-<article class="menuCard">
-
-<img src="7.jpeg" alt="کیک شکلاتی">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-03 / DESSERT
-</div>
-
-<h3>کیک شکلاتی</h3>
-
-<p>
-نرم، غلیظ و شکلاتی.
-</p>
-
-<span class="price">
-۱۹۵,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 8 -->
-
-<article class="menuCard">
-
-<img src="8.jpeg" alt="لاته">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-04 / COFFEE
-</div>
-
-<h3>لاته</h3>
-
-<p>
-اسپرسو با شیر
-و فوم لطیف.
-</p>
-
-<span class="price">
-۱۶۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 9 -->
-
-<article class="menuCard">
-
-<img src="9.jpeg" alt="شیک شکلات">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-05 / SHAKE
-</div>
-
-<h3>شیک شکلات</h3>
-
-<p>
-شکلاتی، خنک
-و خامه‌ای.
-</p>
-
-<span class="price">
-۲۲۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 10 -->
-
-<article class="menuCard">
-
-<img src="10.jpeg" alt="کیک توت فرنگی">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-06 / DESSERT
-</div>
-
-<h3>کیک توت‌فرنگی</h3>
-
-<p>
-خامه‌ی لطیف
-و توت‌فرنگی تازه.
-</p>
-
-<span class="price">
-۲۰۵,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- 11 -->
-
-<article class="menuCard">
-
-<img src="11.jpeg" alt="شیک موز شکلات">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-07 / SHAKE
-</div>
-
-<h3>شیک موز شکلات</h3>
-
-<p>
-ترکیب موز،
-شیر و شکلات.
-</p>
-
-<span class="price">
-۲۳۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-<!-- CAPPUCCINO -->
-
-<article class="menuCard">
-
-<img src="2.jpeg" alt="کاپوچینو">
-
-<div class="menuInfo">
-
-<div class="menuNumber">
-08 / SIGNATURE
-</div>
-
-<h3>کاپوچینو</h3>
-
-<p>
-اسپرسو، شیر
-و فوم مخملی.
-</p>
-
-<span class="price">
-۱۷۰,۰۰۰ تومان
-</span>
-
-</div>
-
-</article>
-
-
-</div>
+<!-- =========================
+     INTRO
+========================= -->
+
+<section
+    class="intro"
+    id="experience"
+>
+
+    <div class="introContent reveal">
+
+        <div class="eyebrow">
+            THE FIRST SIP
+        </div>
+
+        <h2>
+            اولین جرعه،
+            <br>
+            شروع تجربه است.
+        </h2>
+
+        <p>
+            در NOIR همه‌چیز برای ساختن یک
+            حس متفاوت طراحی شده است؛
+            از نور گرم و فضای تاریک
+            تا جزئیات کوچک هر فنجان.
+        </p>
+
+    </div>
+
+    <div class="introNumber">
+        01
+    </div>
 
 </section>
 
 
-<!-- DECOR SECTION -->
+<!-- =========================
+     SPECIAL
+========================= -->
 
-<section class="decorSection">
+<section class="special">
 
-<img
-class="decorLeft"
-src="3.jpeg"
-alt="دکور کافه">
+    <div class="specialCircle"></div>
 
-<img
-class="decorRight"
-src="4.jpeg"
-alt="دکور کافه">
+    <div class="specialText reveal">
 
-<div class="decorText">
+        <div class="eyebrow">
+            THE NOIR MOMENT
+        </div>
 
-<div class="eyebrow">
-MORE THAN COFFEE
-</div>
+        <h2>
+            SIP
+            <br>
+            <span>THE DARK</span>
+        </h2>
 
-<h2>
-اینجا
-<br>
-<span>NOIR</span>
-است.
-</h2>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- ABOUT -->
+<!-- =========================
+     MENU
+========================= -->
 
-<section class="about" id="about">
+<section
+    class="menu"
+    id="menu"
+>
 
-<div class="aboutBox">
+    <div class="menuHeader reveal">
 
-<div class="eyebrow">
-OUR PHILOSOPHY
-</div>
+        <div class="eyebrow">
+            THE MENU
+        </div>
 
-<h2>
-قهوه،
-<br>
-با شخصیت.
-</h2>
+        <h2>
+            منوی NOIR
+        </h2>
 
-<p>
-ما NOIR را برای کسانی ساختیم که
-به جزئیات اهمیت می‌دهند؛
-از اولین نگاه به فنجان تا آخرین جرعه.
-</p>
+        <p>
+            انتخاب کن. مزه کن. دوباره برگرد.
+        </p>
 
-</div>
+    </div>
+
+
+    <div class="menuGrid">
+
+
+        <!-- MOCHA -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="5.jpeg"
+                    alt="موکا"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    01 / COFFEE
+                </div>
+
+                <h3>
+                    موکا
+                </h3>
+
+                <p>
+                    اسپرسو، شیر و شکلات
+                    با طعمی عمیق و گرم.
+                </p>
+
+                <span class="price">
+                    ۱۸۰,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- AMERICANO -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="6.jpeg"
+                    alt="آمریکانو"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    02 / COFFEE
+                </div>
+
+                <h3>
+                    آمریکانو
+                </h3>
+
+                <p>
+                    قهوه‌ای کلاسیک،
+                    ساده و قدرتمند.
+                </p>
+
+                <span class="price">
+                    ۱۴۰,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- CHOCOLATE CAKE -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="7.jpeg"
+                    alt="کیک شکلاتی"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    03 / DESSERT
+                </div>
+
+                <h3>
+                    کیک شکلاتی
+                </h3>
+
+                <p>
+                    نرم، غلیظ و
+                    سرشار از شکلات.
+                </p>
+
+                <span class="price">
+                    ۱۹۵,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- LATTE -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="8.jpeg"
+                    alt="لاته"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    04 / COFFEE
+                </div>
+
+                <h3>
+                    لاته
+                </h3>
+
+                <p>
+                    اسپرسو، شیر
+                    و فوم لطیف.
+                </p>
+
+                <span class="price">
+                    ۱۶۰,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- CHOCOLATE SHAKE -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="9.jpeg"
+                    alt="شیک شکلات"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    05 / SHAKE
+                </div>
+
+                <h3>
+                    شیک شکلات
+                </h3>
+
+                <p>
+                    شکلاتی، خنک
+                    و خامه‌ای.
+                </p>
+
+                <span class="price">
+                    ۲۲۰,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- STRAWBERRY CAKE -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="10.jpeg"
+                    alt="کیک توت فرنگی"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    06 / DESSERT
+                </div>
+
+                <h3>
+                    کیک توت‌فرنگی
+                </h3>
+
+                <p>
+                    خامه‌ی لطیف
+                    و توت‌فرنگی.
+                </p>
+
+                <span class="price">
+                    ۲۰۵,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- BANANA CHOCOLATE SHAKE -->
+
+        <article class="menuCard reveal">
+
+            <div class="cardImage">
+
+                <img
+                    src="11.jpeg"
+                    alt="شیک موز شکلات"
+                >
+
+            </div>
+
+            <div class="cardOverlay"></div>
+
+            <div class="cardGlass"></div>
+
+            <div class="menuInfo">
+
+                <div class="menuNumber">
+                    07 / SHAKE
+                </div>
+
+                <h3>
+                    شیک موز شکلات
+                </h3>
+
+                <p>
+                    موز، شیر و
+                    شکلات.
+                </p>
+
+                <span class="price">
+                    ۲۳۰,۰۰۰ تومان
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </div>
 
 </section>
 
 
-<!-- CONTACT -->
+<!-- =========================
+     FEATURE
+========================= -->
 
-<section class="contact" id="contact">
+<section class="feature">
 
-<div class="contactTitle">
+    <div class="featureOrb"></div>
 
-<div class="eyebrow">
-COME CLOSER
-</div>
+    <div class="featureContent reveal">
 
-<h2>
-منتظرت هستیم.
-</h2>
+        <div class="eyebrow">
+            MORE THAN COFFEE
+        </div>
 
-</div>
+        <h2>
+            هر فنجان،
+            <br>
+            <span>یک داستان.</span>
+        </h2>
 
-<div class="contactGrid">
+        <p>
+            NOIR برای کسانی ساخته شده که
+            به جزئیات اهمیت می‌دهند؛
+            از اولین نگاه تا آخرین جرعه.
+        </p>
 
-<div class="contactBox">
-
-<span>LOCATION</span>
-
-<h3>
-آدرس
-</h3>
-
-<p>
-قم، آدرس کافه
-</p>
-
-</div>
-
-
-<div class="contactBox">
-
-<span>OPEN HOURS</span>
-
-<h3>
-ساعت کاری
-</h3>
-
-<p>
-هر روز<br>
-۹ صبح تا ۱۱ شب
-</p>
-
-</div>
-
-
-<div class="contactBox">
-
-<span>CONTACT</span>
-
-<h3>
-تماس
-</h3>
-
-<p>
-شماره تماس کافه
-</p>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+    class="about"
+    id="about"
+>
+
+    <div class="aboutContent reveal">
+
+        <div class="eyebrow">
+            OUR PHILOSOPHY
+        </div>
+
+        <h2>
+            قهوه،
+            <br>
+            با شخصیت.
+        </h2>
+
+        <p>
+            ما NOIR را به عنوان یک کافه‌ی
+            معمولی طراحی نکردیم.
+            اینجا هر جزئیات بخشی از تجربه است؛
+            نور، صدا، عطر قهوه و فضایی
+            که برای ماندن ساخته شده.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+    class="contact"
+    id="contact"
+>
+
+    <div class="contactHeader reveal">
+
+        <div class="eyebrow">
+            COME CLOSER
+        </div>
+
+        <h2>
+            منتظرت هستیم.
+        </h2>
+
+    </div>
+
+
+    <div class="contactGrid">
+
+
+        <div class="contactBox reveal">
+
+            <span>
+                LOCATION
+            </span>
+
+            <h3>
+                آدرس
+            </h3>
+
+            <p>
+                قم، آدرس کافه
+            </p>
+
+        </div>
+
+
+        <div class="contactBox reveal">
+
+            <span>
+                OPEN HOURS
+            </span>
+
+            <h3>
+                ساعت کاری
+            </h3>
+
+            <p>
+                هر روز
+                <br>
+                ۹ صبح تا ۱۱ شب
+            </p>
+
+        </div>
+
+
+        <div class="contactBox reveal">
+
+            <span>
+                CONTACT
+            </span>
+
+            <h3>
+                تماس
+            </h3>
+
+            <p>
+                شماره تماس کافه
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-<div class="footerLogo">
-NOIR
-</div>
+    <div class="footerLogo">
+        NOIR
+    </div>
 
-<div class="footerText">
-IMMERSIVE COFFEE EXPERIENCE
-</div>
+    <div class="footerText">
+        IMMERSIVE COFFEE EXPERIENCE
+    </div>
 
 </footer>
 
 
 <script>
 
-/* ---------- 3D MOUSE TILT ---------- */
+/* =========================================
+   3D HERO MOVEMENT
+========================================= */
+
+const scene =
+    document.getElementById("scene3D");
+
+let mouseX = 0;
+let mouseY = 0;
+
+window.addEventListener(
+    "mousemove",
+    function(event){
+
+        mouseX =
+            event.clientX /
+            window.innerWidth -
+            .5;
+
+        mouseY =
+            event.clientY /
+            window.innerHeight -
+            .5;
+
+        if(scene){
+
+            scene.style.transform =
+                `
+                translateY(-50%)
+                perspective(1000px)
+                rotateY(${mouseX * 12}deg)
+                rotateX(${mouseY * -8}deg)
+                `;
+        }
+
+    }
+);
+
+
+/* =========================================
+   MENU 3D TILT
+========================================= */
 
 const cards =
-document.querySelectorAll(".menuCard");
+    document.querySelectorAll(".menuCard");
 
-cards.forEach(card=>{
+cards.forEach(card => {
 
-card.addEventListener("mousemove",e=>{
+    card.addEventListener(
+        "mousemove",
+        function(e){
 
-const rect =
-card.getBoundingClientRect();
+            const rect =
+                card.getBoundingClientRect();
 
-const x =
-e.clientX - rect.left;
+            const x =
+                e.clientX -
+                rect.left;
 
-const y =
-e.clientY - rect.top;
+            const y =
+                e.clientY -
+                rect.top;
 
-const centerX =
-rect.width / 2;
+            const centerX =
+                rect.width / 2;
 
-const centerY =
-rect.height / 2;
+            const centerY =
+                rect.height / 2;
 
-const rotateX =
-((y-centerY)/centerY)*-6;
+            const rotateX =
+                ((y - centerY) /
+                centerY) * -7;
 
-const rotateY =
-((x-centerX)/centerX)*6;
+            const rotateY =
+                ((x - centerX) /
+                centerX) * 7;
 
-card.style.transform =
-`perspective(1000px)
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-12px)`;
+            card.style.transform =
+                `
+                perspective(1100px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                translateZ(15px)
+                translateY(-12px)
+                `;
 
-});
-
-card.addEventListener("mouseleave",()=>{
-
-card.style.transform =
-"perspective(1000px) rotateX(0) rotateY(0) translateY(0)";
-
-});
-
-});
+        }
+    );
 
 
-/* ---------- PARALLAX DECOR ---------- */
+    card.addEventListener(
+        "mouseleave",
+        function(){
 
-document.addEventListener("mousemove",e=>{
+            card.style.transform =
+                `
+                perspective(1100px)
+                rotateX(0deg)
+                rotateY(0deg)
+                translateZ(0)
+                translateY(0)
+                `;
 
-const x =
-(e.clientX/window.innerWidth-.5);
-
-const y =
-(e.clientY/window.innerHeight-.5);
-
-document.querySelectorAll(".decor").forEach((item,index)=>{
-
-const amount =
-(index+1)*18;
-
-item.style.translate =
-`${x*amount}px ${y*amount}px`;
-
-});
+        }
+    );
 
 });
 
 
-/* ---------- SCROLL REVEAL ---------- */
+/* =========================================
+   SCROLL REVEAL
+========================================= */
 
 const observer =
-new IntersectionObserver(
-(entries)=>{
+    new IntersectionObserver(
+        function(entries){
 
-entries.forEach(entry=>{
+            entries.forEach(
+                function(entry){
 
-if(entry.isIntersecting){
+                    if(
+                        entry.isIntersecting
+                    ){
 
-entry.target.style.opacity="1";
-entry.target.style.transform += " translateY(0)";
+                        entry.target.classList.add(
+                            "show"
+                        );
 
-}
+                    }
 
-});
+                }
+            );
 
-},
-{
-threshold:.15
-});
+        },
+        {
+            threshold:.12
+        }
+    );
 
 
 document
-.querySelectorAll(
-".menuCard,.introContent,.aboutBox,.decorText"
-)
-.forEach(el=>{
+    .querySelectorAll(".reveal")
+    .forEach(
+        element =>
+            observer.observe(element)
+    );
 
-el.style.opacity="0";
-el.style.transform +=
-" translateY(35px)";
 
-el.style.transition=
-"opacity .9s ease, transform .9s ease";
+/* =========================================
+   PARALLAX ON SCROLL
+========================================= */
 
-observer.observe(el);
+window.addEventListener(
+    "scroll",
+    function(){
 
-});
+        const scroll =
+            window.scrollY;
+
+        const hero =
+            document.querySelector(
+                ".heroImage img"
+            );
+
+        if(hero){
+
+            hero.style.transform =
+                `
+                scale(1.06)
+                translateY(${scroll * .12}px)
+                `;
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   TOUCH DEVICES
+========================================= */
+
+if(
+    "ontouchstart" in window
+){
+
+    cards.forEach(card => {
+
+        card.addEventListener(
+            "touchstart",
+            function(){
+
+                card.style.transform =
+                    `
+                    perspective(1100px)
+                    rotateX(2deg)
+                    rotateY(-2deg)
+                    translateY(-8px)
+                    `;
+
+            }
+        );
+
+        card.addEventListener(
+            "touchend",
+            function(){
+
+                setTimeout(
+                    () => {
+
+                        card.style.transform =
+                            `
+                            perspective(1100px)
+                            rotateX(0)
+                            rotateY(0)
+                            translateY(0)
+                            `;
+
+                    },
+                    300
+                );
+
+            }
+        );
+
+    });
+
+}
 
 </script>
 
